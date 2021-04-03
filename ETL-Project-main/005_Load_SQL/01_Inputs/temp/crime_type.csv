@@ -1,0 +1,26 @@
+crime_id,crime_name
+A20,Assault and related offences
+A50,Robbery
+A70,"Stalking, harassment and threatening behaviour"
+A80,Dangerous and negligent acts endangering people
+B10,Arson
+B20,Property damage
+B30,Burglary/Break and enter
+B40,Theft
+B50,Deception
+B60,Bribery
+C10,Drug dealing and trafficking
+C20,Cultivate or manufacture drugs
+C30,Drug use and possession
+C90,Other drug offences
+D10,Weapons and explosives offences
+D20,Disorderly and offensive conduct
+D30,Public nuisance offences
+D40,Public security offences
+E10,Justice procedures
+E20,Breaches of orders
+F10,Regulatory driving offences
+F20,Transport regulation offences
+F30,Other government regulatory offences
+F90,Miscellaneous offences
+Other,crimes against the person

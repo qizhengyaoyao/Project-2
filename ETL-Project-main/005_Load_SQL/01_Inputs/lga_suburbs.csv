@@ -1,0 +1,314 @@
+lga_id,suburb
+1,ivanhoe
+1,ivanhoe east
+1,bellfield
+1,heidelberg heights
+1,heidelberg west
+1,bundoora
+1,eaglemont
+1,heidelberg
+1,rosanna
+1,viewbank
+1,macleod
+1,yallambie
+1,watsonia
+1,watsonia north
+1,briar hill
+1,greensborough
+1,lower plenty
+1,montmorency
+1,eltham
+1,eltham north
+2,brighton
+2,brighton east
+2,hampton east
+2,highett
+2,sandringham
+2,cheltenham
+2,beaumaris
+2,black rock
+3,kew
+3,kew east
+3,balwyn
+3,balwyn north
+3,hawthorn
+3,hawthorn east
+3,camberwell
+3,glen iris
+3,canterbury
+3,mont albert
+3,surrey hills
+3,ashburton
+4,brooklyn
+4,albion
+4,derrimut
+4,st albans
+4,sunshine north
+4,albanvale
+4,kealba
+4,kings park
+4,ardeer
+4,cairnlea
+4,deer park
+4,keilor east
+4,keilor
+4,delahey
+4,hillside
+4,sydenham
+4,keilor downs
+4,keilor lodge
+4,taylors lakes
+4,keilor park
+4,tullamarine
+5,clematis
+5,emerald
+6,lysterfield south
+6,doveton
+6,eumemmerring
+6,endeavour hills
+6,hallam
+6,narre warren
+6,narre warren north
+6,narre warren south
+6,berwick
+6,lynbrook
+6,lyndhurst
+6,hampton park
+6,cranbourne
+6,cranbourne north
+6,junction village
+7,northcote
+7,thornbury
+7,preston
+7,reservoir
+7,alphington
+7,fairfield
+7,kingsbury
+9,seaford
+9,frankston
+9,frankston south
+9,frankston north
+9,carrum downs
+9,langwarrin
+9,langwarrin south
+9,sandhurst
+9,skye
+10,caulfield east
+10,caulfield north
+10,caulfield
+10,caulfield south
+10,carnegie
+10,glen huntly
+10,murrumbeena
+10,bentleigh east
+10,st kilda east
+10,elsternwick
+10,gardenvale
+10,bentleigh
+10,mckinnon
+10,ormond
+11,springvale
+11,springvale south
+11,keysborough
+11,noble park
+11,noble park north
+11,bangholme
+11,dandenong
+11,dandenong north
+11,dandenong south
+12,newport
+12,south kingsville
+12,spotswood
+12,williamstown
+12,williamstown north
+12,altona
+12,seaholme
+12,altona north
+12,altona meadows
+12,laverton
+12,seabrook
+13,gladstone park
+13,broadmeadows
+13,dallas
+13,jacana
+13,coolaroo
+13,meadow heights
+13,attwood
+13,westmeadows
+13,fawkner
+13,campbellfield
+13,craigieburn
+13,roxburgh park
+14,oakleigh south
+14,clarinda
+14,clayton south
+14,dingley village
+14,moorabbin
+14,mentone
+14,aspendale
+14,aspendale gardens
+14,mordialloc
+14,parkdale
+14,waterways
+14,bonbeach
+14,chelsea
+14,chelsea heights
+14,edithvale
+14,carrum
+14,patterson lakes
+14,heatherton
+15,wantirna
+15,wantirna south
+15,bayswater
+15,the basin
+15,boronia
+15,ferntree gully
+15,upper ferntree gully
+15,rowville
+15,scoresby
+15,knoxfield
+16,bulleen
+16,templestowe
+16,doncaster
+16,templestowe lower
+16,doncaster east
+16,donvale
+16,warrandyte
+16,park orchards
+16,nunawading
+16,ringwood north
+17,footscray
+17,seddon
+17,kingsville
+17,maidstone
+17,west footscray
+17,yarraville
+17,maribyrnong
+18,vermont
+18,ringwood
+18,warranwood
+18,heathmont
+18,croydon
+18,croydon hills
+18,croydon north
+18,croydon south
+18,kilsyth
+18,kilsyth south
+18,bayswater north
+19,melbourne
+19,east melbourne
+19,west melbourne
+19,docklands
+19,southbank
+19,parkville
+19,flemington
+19,kensington
+19,north melbourne
+19,carlton
+19,carlton north
+19,south yarra
+19,port melbourne
+20,burnside
+20,burnside heights
+20,caroline springs
+20,taylors hill
+21,burwood
+21,ashwood
+21,chadstone
+21,mount waverley
+21,glen waverley
+21,wheelers hill
+21,hughesdale
+21,huntingdale
+21,oakleigh
+21,oakleigh east
+21,clayton
+21,notting hill
+21,mulgrave
+22,ascot vale
+22,travancore
+22,avondale heights
+22,moonee ponds
+22,aberfeldie
+22,essendon
+22,essendon west
+22,essendon north
+22,strathmore
+22,strathmore heights
+22,airport west
+22,niddrie
+23,gowanbrae
+23,pascoe vale
+23,pascoe vale south
+23,glenroy
+23,hadfield
+23,oak park
+23,brunswick west
+23,brunswick
+23,brunswick east
+23,coburg
+23,coburg north
+23,fitzroy north
+24,diamond creek
+24,research
+24,hurstbridge
+24,north warrandyte
+26,windsor
+26,st kilda
+26,st kilda west
+26,balaclava
+26,elwood
+26,ripponlea
+26,south melbourne
+26,albert park
+26,middle park
+27,toorak
+27,armadale
+27,prahran
+27,kooyong
+27,malvern
+27,malvern east
+28,box hill
+28,box hill south
+28,box hill north
+28,mont albert north
+28,blackburn
+28,blackburn north
+28,blackburn south
+28,forest hill
+28,mitcham
+28,vermont south
+28,burwood east
+29,thomastown
+29,lalor
+29,epping
+29,mill park
+29,south morang
+30,hoppers crossing
+30,point cook
+30,werribee
+31,princes hill
+31,fitzroy
+31,clifton hill
+31,collingwood
+31,abbotsford
+31,burnley
+31,cremorne
+31,richmond
+32,mooroolbark
+32,wandin north
+32,lilydale
+32,sassafras
+32,upwey
+32,selby
+32,belgrave
+32,belgrave heights
+32,tecoma
+32,montrose
+32,kalorama
+32,mount dandenong
+32,ferny creek
+32,sherbrooke
+32,kallista
+32,the patch
+32,mount evelyn

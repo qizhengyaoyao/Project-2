@@ -1,0 +1,940 @@
+suburb,place_id,place_type_count
+abbotsford,0,15.0
+abbotsford,1,1.0
+abbotsford,2,20.0
+aberfeldie,0,1.0
+aberfeldie,1,0.0
+aberfeldie,2,16.0
+airport west,0,4.0
+airport west,1,0.0
+airport west,2,4.0
+albanvale,0,2.0
+albanvale,1,0.0
+albanvale,2,9.0
+albert park,0,14.0
+albert park,1,1.0
+albert park,2,20.0
+albion,0,2.0
+albion,1,0.0
+albion,2,9.0
+alphington,0,3.0
+alphington,1,0.0
+alphington,2,15.0
+altona,0,5.0
+altona,1,0.0
+altona,2,8.0
+altona meadows,0,1.0
+altona meadows,1,0.0
+altona meadows,2,13.0
+altona north,0,4.0
+altona north,1,0.0
+altona north,2,11.0
+ardeer,0,1.0
+ardeer,1,0.0
+ardeer,2,9.0
+armadale,0,9.0
+armadale,1,0.0
+armadale,2,8.0
+ascot vale,0,14.0
+ascot vale,1,0.0
+ascot vale,2,5.0
+ashburton,0,1.0
+ashburton,1,1.0
+ashburton,2,15.0
+ashwood,0,2.0
+ashwood,1,0.0
+ashwood,2,15.0
+aspendale,0,1.0
+aspendale,1,0.0
+aspendale,2,7.0
+aspendale gardens,0,1.0
+aspendale gardens,1,0.0
+aspendale gardens,2,13.0
+attwood,0,0.0
+attwood,1,0.0
+attwood,2,6.0
+avondale heights,0,5.0
+avondale heights,1,0.0
+avondale heights,2,12.0
+balaclava,0,17.0
+balaclava,1,1.0
+balaclava,2,20.0
+balwyn,0,3.0
+balwyn,1,0.0
+balwyn,2,13.0
+balwyn north,0,2.0
+balwyn north,1,0.0
+balwyn north,2,9.0
+bangholme,0,0.0
+bangholme,1,0.0
+bangholme,2,2.0
+bayswater,0,5.0
+bayswater,1,0.0
+bayswater,2,12.0
+bayswater north,0,1.0
+bayswater north,1,0.0
+bayswater north,2,5.0
+beaumaris,0,1.0
+beaumaris,1,0.0
+beaumaris,2,15.0
+belgrave,0,3.0
+belgrave,1,1.0
+belgrave,2,13.0
+belgrave heights,0,2.0
+belgrave heights,1,0.0
+belgrave heights,2,11.0
+bellfield,0,3.0
+bellfield,1,0.0
+bellfield,2,9.0
+bentleigh,0,5.0
+bentleigh,1,0.0
+bentleigh,2,14.0
+bentleigh east,0,2.0
+bentleigh east,1,0.0
+bentleigh east,2,7.0
+berwick,0,4.0
+berwick,1,0.0
+berwick,2,20.0
+black rock,0,3.0
+black rock,1,0.0
+black rock,2,5.0
+blackburn,0,5.0
+blackburn,1,0.0
+blackburn,2,20.0
+blackburn north,0,2.0
+blackburn north,1,0.0
+blackburn north,2,13.0
+blackburn south,0,2.0
+blackburn south,1,0.0
+blackburn south,2,19.0
+bonbeach,0,0.0
+bonbeach,1,0.0
+bonbeach,2,6.0
+boronia,0,5.0
+boronia,1,1.0
+boronia,2,16.0
+box hill,0,4.0
+box hill,1,1.0
+box hill,2,20.0
+box hill north,0,3.0
+box hill north,1,0.0
+box hill north,2,20.0
+box hill south,0,2.0
+box hill south,1,0.0
+box hill south,2,11.0
+briar hill,0,4.0
+briar hill,1,0.0
+briar hill,2,13.0
+brighton,0,4.0
+brighton,1,0.0
+brighton,2,6.0
+brighton east,0,7.0
+brighton east,1,0.0
+brighton east,2,12.0
+broadmeadows,0,3.0
+broadmeadows,1,1.0
+broadmeadows,2,11.0
+brooklyn,0,1.0
+brooklyn,1,0.0
+brooklyn,2,4.0
+brunswick,0,4.0
+brunswick,1,0.0
+brunswick,2,14.0
+brunswick east,0,8.0
+brunswick east,1,0.0
+brunswick east,2,20.0
+brunswick west,0,14.0
+brunswick west,1,2.0
+brunswick west,2,12.0
+bulleen,0,2.0
+bulleen,1,1.0
+bulleen,2,9.0
+bundoora,0,1.0
+bundoora,1,0.0
+bundoora,2,18.0
+burnley,0,11.0
+burnley,1,0.0
+burnley,2,20.0
+burnside,0,2.0
+burnside,1,0.0
+burnside,2,10.0
+burnside heights,0,1.0
+burnside heights,1,0.0
+burnside heights,2,8.0
+burwood,0,2.0
+burwood,1,0.0
+burwood,2,16.0
+burwood east,0,1.0
+burwood east,1,0.0
+burwood east,2,15.0
+cairnlea,0,2.0
+cairnlea,1,0.0
+cairnlea,2,4.0
+camberwell,0,9.0
+camberwell,1,1.0
+camberwell,2,17.0
+campbellfield,0,0.0
+campbellfield,1,0.0
+campbellfield,2,3.0
+canterbury,0,1.0
+canterbury,1,0.0
+canterbury,2,16.0
+carlton,0,12.0
+carlton,1,0.0
+carlton,2,20.0
+carlton north,0,12.0
+carlton north,1,0.0
+carlton north,2,20.0
+carnegie,0,8.0
+carnegie,1,0.0
+carnegie,2,9.0
+caroline springs,0,2.0
+caroline springs,1,0.0
+caroline springs,2,20.0
+carrum,0,2.0
+carrum,1,0.0
+carrum,2,6.0
+carrum downs,0,2.0
+carrum downs,1,0.0
+carrum downs,2,17.0
+caulfield,0,5.0
+caulfield,1,2.0
+caulfield,2,7.0
+caulfield east,0,3.0
+caulfield east,1,0.0
+caulfield east,2,8.0
+caulfield north,0,1.0
+caulfield north,1,0.0
+caulfield north,2,5.0
+caulfield south,0,6.0
+caulfield south,1,2.0
+caulfield south,2,7.0
+chadstone,0,5.0
+chadstone,1,0.0
+chadstone,2,15.0
+chelsea,0,2.0
+chelsea,1,1.0
+chelsea,2,9.0
+chelsea heights,0,0.0
+chelsea heights,1,0.0
+chelsea heights,2,20.0
+cheltenham,0,9.0
+cheltenham,1,1.0
+cheltenham,2,14.0
+clarinda,0,1.0
+clarinda,1,0.0
+clarinda,2,20.0
+clayton,0,5.0
+clayton,1,1.0
+clayton,2,9.0
+clayton south,0,0.0
+clayton south,1,0.0
+clayton south,2,8.0
+clematis,0,2.0
+clematis,1,0.0
+clematis,2,5.0
+clifton hill,0,12.0
+clifton hill,1,0.0
+clifton hill,2,20.0
+coburg,0,7.0
+coburg,1,0.0
+coburg,2,17.0
+coburg north,0,2.0
+coburg north,1,0.0
+coburg north,2,15.0
+collingwood,0,20.0
+collingwood,1,2.0
+collingwood,2,20.0
+coolaroo,0,1.0
+coolaroo,1,0.0
+coolaroo,2,20.0
+craigieburn,0,3.0
+craigieburn,1,1.0
+craigieburn,2,20.0
+cranbourne,0,2.0
+cranbourne,1,0.0
+cranbourne,2,20.0
+cranbourne north,0,2.0
+cranbourne north,1,0.0
+cranbourne north,2,13.0
+cremorne,0,8.0
+cremorne,1,0.0
+cremorne,2,20.0
+croydon,0,5.0
+croydon,1,1.0
+croydon,2,12.0
+croydon hills,0,0.0
+croydon hills,1,0.0
+croydon hills,2,20.0
+croydon north,0,1.0
+croydon north,1,0.0
+croydon north,2,8.0
+croydon south,0,1.0
+croydon south,1,0.0
+croydon south,2,9.0
+dallas,0,3.0
+dallas,1,0.0
+dallas,2,16.0
+dandenong,0,11.0
+dandenong,1,2.0
+dandenong,2,14.0
+dandenong north,0,4.0
+dandenong north,1,0.0
+dandenong north,2,7.0
+dandenong south,0,1.0
+dandenong south,1,0.0
+dandenong south,2,2.0
+deer park,0,1.0
+deer park,1,0.0
+deer park,2,8.0
+delahey,0,2.0
+delahey,1,0.0
+delahey,2,10.0
+derrimut,0,0.0
+derrimut,1,0.0
+derrimut,2,8.0
+diamond creek,0,0.0
+diamond creek,1,0.0
+diamond creek,2,0.0
+dingley village,0,0.0
+dingley village,1,0.0
+dingley village,2,19.0
+docklands,0,17.0
+docklands,1,7.0
+docklands,2,20.0
+doncaster,0,4.0
+doncaster,1,0.0
+doncaster,2,17.0
+doncaster east,0,3.0
+doncaster east,1,0.0
+doncaster east,2,20.0
+donvale,0,1.0
+donvale,1,0.0
+donvale,2,13.0
+doveton,0,5.0
+doveton,1,0.0
+doveton,2,10.0
+eaglemont,0,5.0
+eaglemont,1,1.0
+eaglemont,2,18.0
+east melbourne,0,12.0
+east melbourne,1,0.0
+east melbourne,2,20.0
+edithvale,0,0.0
+edithvale,1,0.0
+edithvale,2,8.0
+elsternwick,0,12.0
+elsternwick,1,0.0
+elsternwick,2,14.0
+eltham,0,5.0
+eltham,1,1.0
+eltham,2,17.0
+eltham north,0,0.0
+eltham north,1,0.0
+eltham north,2,15.0
+elwood,0,2.0
+elwood,1,0.0
+elwood,2,13.0
+emerald,0,3.0
+emerald,1,1.0
+emerald,2,18.0
+endeavour hills,0,3.0
+endeavour hills,1,1.0
+endeavour hills,2,14.0
+epping,0,0.0
+epping,1,0.0
+epping,2,9.0
+essendon,0,4.0
+essendon,1,0.0
+essendon,2,11.0
+essendon north,0,1.0
+essendon north,1,0.0
+essendon north,2,14.0
+essendon west,0,0.0
+essendon west,1,0.0
+essendon west,2,18.0
+eumemmerring,0,4.0
+eumemmerring,1,0.0
+eumemmerring,2,12.0
+fairfield,0,10.0
+fairfield,1,0.0
+fairfield,2,11.0
+fawkner,0,1.0
+fawkner,1,0.0
+fawkner,2,18.0
+ferntree gully,0,5.0
+ferntree gully,1,0.0
+ferntree gully,2,11.0
+ferny creek,0,0.0
+ferny creek,1,0.0
+ferny creek,2,5.0
+fitzroy,0,20.0
+fitzroy,1,1.0
+fitzroy,2,20.0
+fitzroy north,0,18.0
+fitzroy north,1,0.0
+fitzroy north,2,20.0
+flemington,0,8.0
+flemington,1,1.0
+flemington,2,20.0
+footscray,0,11.0
+footscray,1,1.0
+footscray,2,20.0
+forest hill,0,4.0
+forest hill,1,0.0
+forest hill,2,20.0
+frankston,0,6.0
+frankston,1,1.0
+frankston,2,20.0
+frankston north,0,1.0
+frankston north,1,0.0
+frankston north,2,12.0
+frankston south,0,3.0
+frankston south,1,0.0
+frankston south,2,20.0
+gardenvale,0,3.0
+gardenvale,1,0.0
+gardenvale,2,8.0
+gladstone park,0,5.0
+gladstone park,1,0.0
+gladstone park,2,17.0
+glen huntly,0,4.0
+glen huntly,1,0.0
+glen huntly,2,10.0
+glen iris,0,2.0
+glen iris,1,0.0
+glen iris,2,11.0
+glen waverley,0,5.0
+glen waverley,1,0.0
+glen waverley,2,9.0
+glenroy,0,4.0
+glenroy,1,0.0
+glenroy,2,10.0
+gowanbrae,0,1.0
+gowanbrae,1,0.0
+gowanbrae,2,7.0
+greensborough,0,3.0
+greensborough,1,1.0
+greensborough,2,20.0
+hadfield,0,3.0
+hadfield,1,0.0
+hadfield,2,9.0
+hallam,0,3.0
+hallam,1,0.0
+hallam,2,12.0
+hampton east,0,4.0
+hampton east,1,1.0
+hampton east,2,20.0
+hampton park,0,6.0
+hampton park,1,0.0
+hampton park,2,20.0
+hawthorn,0,7.0
+hawthorn,1,1.0
+hawthorn,2,13.0
+hawthorn east,0,5.0
+hawthorn east,1,0.0
+hawthorn east,2,20.0
+heatherton,0,1.0
+heatherton,1,0.0
+heatherton,2,9.0
+heathmont,0,2.0
+heathmont,1,0.0
+heathmont,2,15.0
+heidelberg,0,5.0
+heidelberg,1,1.0
+heidelberg,2,16.0
+heidelberg heights,0,4.0
+heidelberg heights,1,0.0
+heidelberg heights,2,11.0
+heidelberg west,0,3.0
+heidelberg west,1,0.0
+heidelberg west,2,12.0
+highett,0,3.0
+highett,1,0.0
+highett,2,17.0
+hillside,0,1.0
+hillside,1,0.0
+hillside,2,15.0
+hoppers crossing,0,5.0
+hoppers crossing,1,0.0
+hoppers crossing,2,9.0
+hughesdale,0,1.0
+hughesdale,1,0.0
+hughesdale,2,9.0
+huntingdale,0,1.0
+huntingdale,1,0.0
+huntingdale,2,5.0
+hurstbridge,0,4.0
+hurstbridge,1,1.0
+hurstbridge,2,10.0
+ivanhoe,0,5.0
+ivanhoe,1,0.0
+ivanhoe,2,12.0
+ivanhoe east,0,1.0
+ivanhoe east,1,0.0
+ivanhoe east,2,9.0
+jacana,0,1.0
+jacana,1,1.0
+jacana,2,14.0
+junction village,0,0.0
+junction village,1,0.0
+junction village,2,3.0
+kallista,0,0.0
+kallista,1,0.0
+kallista,2,1.0
+kalorama,0,0.0
+kalorama,1,0.0
+kalorama,2,3.0
+kealba,0,4.0
+kealba,1,0.0
+kealba,2,10.0
+keilor,0,0.0
+keilor,1,0.0
+keilor,2,10.0
+keilor downs,0,2.0
+keilor downs,1,2.0
+keilor downs,2,19.0
+keilor east,0,1.0
+keilor east,1,0.0
+keilor east,2,9.0
+keilor lodge,0,4.0
+keilor lodge,1,0.0
+keilor lodge,2,18.0
+keilor park,0,2.0
+keilor park,1,0.0
+keilor park,2,4.0
+kensington,0,9.0
+kensington,1,0.0
+kensington,2,20.0
+kew,0,3.0
+kew,1,1.0
+kew,2,6.0
+kew east,0,2.0
+kew east,1,1.0
+kew east,2,9.0
+keysborough,0,0.0
+keysborough,1,0.0
+keysborough,2,14.0
+kilsyth,0,3.0
+kilsyth,1,0.0
+kilsyth,2,12.0
+kilsyth south,0,1.0
+kilsyth south,1,0.0
+kilsyth south,2,17.0
+kingsbury,0,2.0
+kingsbury,1,0.0
+kingsbury,2,16.0
+kings park,0,1.0
+kings park,1,0.0
+kings park,2,16.0
+kingsville,0,8.0
+kingsville,1,0.0
+kingsville,2,12.0
+kooyong,0,3.0
+kooyong,1,0.0
+kooyong,2,10.0
+knoxfield,0,1.0
+knoxfield,1,0.0
+knoxfield,2,10.0
+lalor,0,4.0
+lalor,1,0.0
+lalor,2,17.0
+langwarrin,0,3.0
+langwarrin,1,0.0
+langwarrin,2,17.0
+langwarrin south,0,0.0
+langwarrin south,1,0.0
+langwarrin south,2,0.0
+laverton,0,2.0
+laverton,1,1.0
+laverton,2,10.0
+lilydale,0,4.0
+lilydale,1,1.0
+lilydale,2,12.0
+lower plenty,0,0.0
+lower plenty,1,0.0
+lower plenty,2,12.0
+lynbrook,0,4.0
+lynbrook,1,0.0
+lynbrook,2,11.0
+lyndhurst,0,0.0
+lyndhurst,1,0.0
+lyndhurst,2,5.0
+lysterfield south,0,0.0
+lysterfield south,1,0.0
+lysterfield south,2,3.0
+macleod,0,2.0
+macleod,1,1.0
+macleod,2,11.0
+maidstone,0,4.0
+maidstone,1,0.0
+maidstone,2,16.0
+malvern,0,7.0
+malvern,1,1.0
+malvern,2,12.0
+malvern east,0,4.0
+malvern east,1,0.0
+malvern east,2,14.0
+maribyrnong,0,2.0
+maribyrnong,1,0.0
+maribyrnong,2,13.0
+mckinnon,0,5.0
+mckinnon,1,0.0
+mckinnon,2,11.0
+meadow heights,0,1.0
+meadow heights,1,0.0
+meadow heights,2,20.0
+melbourne,0,20.0
+melbourne,1,4.0
+melbourne,2,20.0
+mentone,0,3.0
+mentone,1,0.0
+mentone,2,14.0
+middle park,0,2.0
+middle park,1,0.0
+middle park,2,20.0
+mill park,0,2.0
+mill park,1,0.0
+mill park,2,20.0
+mitcham,0,3.0
+mitcham,1,1.0
+mitcham,2,16.0
+mont albert,0,3.0
+mont albert,1,0.0
+mont albert,2,11.0
+mont albert north,0,4.0
+mont albert north,1,0.0
+mont albert north,2,12.0
+montmorency,0,4.0
+montmorency,1,0.0
+montmorency,2,11.0
+montrose,0,3.0
+montrose,1,0.0
+montrose,2,13.0
+moonee ponds,0,16.0
+moonee ponds,1,1.0
+moonee ponds,2,7.0
+moorabbin,0,3.0
+moorabbin,1,1.0
+moorabbin,2,19.0
+mooroolbark,0,0.0
+mooroolbark,1,0.0
+mooroolbark,2,15.0
+mordialloc,0,3.0
+mordialloc,1,1.0
+mordialloc,2,20.0
+mount dandenong,0,0.0
+mount dandenong,1,0.0
+mount dandenong,2,12.0
+mount evelyn,0,1.0
+mount evelyn,1,1.0
+mount evelyn,2,7.0
+mount waverley,0,4.0
+mount waverley,1,1.0
+mount waverley,2,15.0
+mulgrave,0,2.0
+mulgrave,1,0.0
+mulgrave,2,18.0
+murrumbeena,0,4.0
+murrumbeena,1,0.0
+murrumbeena,2,13.0
+narre warren,0,4.0
+narre warren,1,1.0
+narre warren,2,15.0
+narre warren north,0,0.0
+narre warren north,1,0.0
+narre warren north,2,6.0
+narre warren south,0,1.0
+narre warren south,1,0.0
+narre warren south,2,6.0
+newport,0,5.0
+newport,1,0.0
+newport,2,16.0
+niddrie,0,6.0
+niddrie,1,0.0
+niddrie,2,11.0
+noble park,0,4.0
+noble park,1,0.0
+noble park,2,13.0
+noble park north,0,3.0
+noble park north,1,0.0
+noble park north,2,11.0
+north melbourne,0,2.0
+north melbourne,1,0.0
+north melbourne,2,12.0
+north warrandyte,0,2.0
+north warrandyte,1,0.0
+north warrandyte,2,10.0
+northcote,0,12.0
+northcote,1,1.0
+northcote,2,20.0
+notting hill,0,1.0
+notting hill,1,0.0
+notting hill,2,5.0
+nunawading,0,4.0
+nunawading,1,1.0
+nunawading,2,12.0
+oak park,0,2.0
+oak park,1,0.0
+oak park,2,13.0
+oakleigh,0,6.0
+oakleigh,1,1.0
+oakleigh,2,9.0
+oakleigh east,0,1.0
+oakleigh east,1,0.0
+oakleigh east,2,13.0
+oakleigh south,0,1.0
+oakleigh south,1,0.0
+oakleigh south,2,11.0
+ormond,0,2.0
+ormond,1,0.0
+ormond,2,10.0
+park orchards,0,1.0
+park orchards,1,0.0
+park orchards,2,9.0
+parkdale,0,2.0
+parkdale,1,0.0
+parkdale,2,5.0
+parkville,0,0.0
+parkville,1,0.0
+parkville,2,20.0
+pascoe vale,0,4.0
+pascoe vale,1,0.0
+pascoe vale,2,14.0
+pascoe vale south,0,1.0
+pascoe vale south,1,0.0
+pascoe vale south,2,7.0
+patterson lakes,0,3.0
+patterson lakes,1,0.0
+patterson lakes,2,11.0
+point cook,0,0.0
+point cook,1,0.0
+point cook,2,10.0
+port melbourne,0,0.0
+port melbourne,1,0.0
+port melbourne,2,11.0
+prahran,0,20.0
+prahran,1,1.0
+prahran,2,20.0
+preston,0,4.0
+preston,1,1.0
+preston,2,13.0
+princes hill,0,6.0
+princes hill,1,0.0
+princes hill,2,18.0
+research,0,1.0
+research,1,0.0
+research,2,8.0
+reservoir,0,7.0
+reservoir,1,0.0
+reservoir,2,12.0
+richmond,0,20.0
+richmond,1,1.0
+richmond,2,17.0
+ringwood,0,8.0
+ringwood,1,1.0
+ringwood,2,20.0
+ringwood north,0,2.0
+ringwood north,1,0.0
+ringwood north,2,9.0
+ripponlea,0,15.0
+ripponlea,1,0.0
+ripponlea,2,15.0
+rosanna,0,4.0
+rosanna,1,0.0
+rosanna,2,10.0
+rowville,0,3.0
+rowville,1,0.0
+rowville,2,8.0
+roxburgh park,0,3.0
+roxburgh park,1,0.0
+roxburgh park,2,20.0
+sandhurst,0,0.0
+sandhurst,1,0.0
+sandhurst,2,2.0
+sandringham,0,5.0
+sandringham,1,1.0
+sandringham,2,12.0
+sassafras,0,1.0
+sassafras,1,0.0
+sassafras,2,10.0
+scoresby,0,1.0
+scoresby,1,0.0
+scoresby,2,15.0
+seabrook,0,1.0
+seabrook,1,0.0
+seabrook,2,7.0
+seaford,0,2.0
+seaford,1,0.0
+seaford,2,6.0
+seaholme,0,2.0
+seaholme,1,0.0
+seaholme,2,13.0
+seddon,0,11.0
+seddon,1,1.0
+seddon,2,20.0
+selby,0,0.0
+selby,1,0.0
+selby,2,20.0
+sherbrooke,0,1.0
+sherbrooke,1,0.0
+sherbrooke,2,9.0
+skye,0,2.0
+skye,1,0.0
+skye,2,2.0
+south kingsville,0,1.0
+south kingsville,1,0.0
+south kingsville,2,10.0
+south melbourne,0,4.0
+south melbourne,1,1.0
+south melbourne,2,20.0
+south morang,0,2.0
+south morang,1,0.0
+south morang,2,20.0
+south yarra,0,15.0
+south yarra,1,0.0
+south yarra,2,20.0
+southbank,0,20.0
+southbank,1,4.0
+southbank,2,20.0
+spotswood,0,1.0
+spotswood,1,0.0
+spotswood,2,17.0
+springvale,0,2.0
+springvale,1,0.0
+springvale,2,18.0
+springvale south,0,2.0
+springvale south,1,0.0
+springvale south,2,18.0
+st albans,0,3.0
+st albans,1,0.0
+st albans,2,14.0
+st kilda,0,11.0
+st kilda,1,0.0
+st kilda,2,20.0
+st kilda east,0,12.0
+st kilda east,1,1.0
+st kilda east,2,12.0
+st kilda west,0,8.0
+st kilda west,1,0.0
+st kilda west,2,20.0
+strathmore,0,1.0
+strathmore,1,0.0
+strathmore,2,19.0
+strathmore heights,0,4.0
+strathmore heights,1,0.0
+strathmore heights,2,9.0
+sunshine north,0,3.0
+sunshine north,1,1.0
+sunshine north,2,3.0
+surrey hills,0,2.0
+surrey hills,1,0.0
+surrey hills,2,13.0
+sydenham,0,1.0
+sydenham,1,0.0
+sydenham,2,14.0
+taylors hill,0,2.0
+taylors hill,1,0.0
+taylors hill,2,13.0
+taylors lakes,0,3.0
+taylors lakes,1,0.0
+taylors lakes,2,16.0
+tecoma,0,3.0
+tecoma,1,1.0
+tecoma,2,11.0
+templestowe,0,1.0
+templestowe,1,0.0
+templestowe,2,10.0
+templestowe lower,0,0.0
+templestowe lower,1,0.0
+templestowe lower,2,10.0
+the basin,0,2.0
+the basin,1,0.0
+the basin,2,20.0
+the patch,0,0.0
+the patch,1,0.0
+the patch,2,6.0
+thomastown,0,5.0
+thomastown,1,0.0
+thomastown,2,13.0
+thornbury,0,6.0
+thornbury,1,0.0
+thornbury,2,20.0
+toorak,0,4.0
+toorak,1,0.0
+toorak,2,4.0
+travancore,0,3.0
+travancore,1,1.0
+travancore,2,9.0
+tullamarine,0,5.0
+tullamarine,1,0.0
+tullamarine,2,17.0
+upper ferntree gully,0,0.0
+upper ferntree gully,1,0.0
+upper ferntree gully,2,6.0
+upwey,0,2.0
+upwey,1,0.0
+upwey,2,4.0
+vermont,0,2.0
+vermont,1,0.0
+vermont,2,13.0
+vermont south,0,1.0
+vermont south,1,0.0
+vermont south,2,14.0
+viewbank,0,0.0
+viewbank,1,0.0
+viewbank,2,10.0
+wandin north,0,0.0
+wandin north,1,0.0
+wandin north,2,4.0
+wantirna,0,1.0
+wantirna,1,0.0
+wantirna,2,19.0
+wantirna south,0,3.0
+wantirna south,1,1.0
+wantirna south,2,11.0
+warrandyte,0,2.0
+warrandyte,1,1.0
+warrandyte,2,9.0
+warranwood,0,0.0
+warranwood,1,0.0
+warranwood,2,7.0
+waterways,0,1.0
+waterways,1,0.0
+waterways,2,6.0
+watsonia,0,1.0
+watsonia,1,0.0
+watsonia,2,15.0
+watsonia north,0,0.0
+watsonia north,1,0.0
+watsonia north,2,18.0
+werribee,0,7.0
+werribee,1,0.0
+werribee,2,19.0
+west footscray,0,1.0
+west footscray,1,0.0
+west footscray,2,14.0
+west melbourne,0,8.0
+west melbourne,1,0.0
+west melbourne,2,11.0
+westmeadows,0,0.0
+westmeadows,1,0.0
+westmeadows,2,13.0
+wheelers hill,0,3.0
+wheelers hill,1,0.0
+wheelers hill,2,20.0
+williamstown,0,7.0
+williamstown,1,0.0
+williamstown,2,18.0
+williamstown north,0,6.0
+williamstown north,1,0.0
+williamstown north,2,20.0
+windsor,0,17.0
+windsor,1,0.0
+windsor,2,20.0
+yallambie,0,2.0
+yallambie,1,0.0
+yallambie,2,15.0
+yarraville,0,7.0
+yarraville,1,0.0
+yarraville,2,18.0
