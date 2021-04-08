@@ -14,7 +14,8 @@ import pymongo
 #################################################
 url = "mongodb+srv://mahjong:mahjong@cluster0.pyqix.mongodb.net/vic_crime?retryWrites=true&w=majority"
 
-client = pymongo.MongoClient(url)
+client = pymongo.MongoClient(os.getenv("MONGODB_URI", url))
+
 vic_db = client['vic_crime']
 
 #################################################
