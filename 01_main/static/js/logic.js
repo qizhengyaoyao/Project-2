@@ -81,7 +81,7 @@ L.control.timelineSlider({
     ],      // timeline dates are created using an array of strings
     changeMap: getDataAddMarkers,       // custom function to update the map based on the timeline items
     position: "bottomleft"      // default is "bottomright" if this is preferred
-    extraChangeMapParams: { exclamation: "Hello World!" }       // extra parameters that can be read by the function in changeMap
+    // extraChangeMapParams: { exclamation: "Hello World!" }       // extra parameters that can be read by the function in changeMap
 }).addTo(myMap);
 
 //=====================================================================
