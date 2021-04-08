@@ -33,8 +33,8 @@ def welcome():
     """List all available api routes."""
     return (
         f"Available Routes:<br/>"
-        f"/api/v1.0/all"
-        f"/api/v1.0/all_type"
+        f"/api/v1.0/all<br/>"
+        f"/api/v1.0/all_type<br/>"
     )
 
 @app.route("/api/v1.0/all")
