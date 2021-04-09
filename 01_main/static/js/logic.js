@@ -52,229 +52,99 @@ var choroplethValue = {};
 // Grabbing our GeoJSON data..
 d3.json(link, function (data) {
 
+    // Append crime data to the LGA GeoJSON
     d3.json(crimeData, function (cData) {
+
         for (var j = 0; j < data.features.length; j++) {
             // console.log(data.features[j]);
+
             for (var i = 0; i < cData.length; i++) {
+
                 if (cData[i]["Year"] === 2011) {
+                    // filter both JSON datasets by LGA name 
                     var geojsonLGA = data.features[j].properties.ABB_NAME;
                     var crimeDataLGA = cData[i]["Local Government Area"];
                     // console.log(`LGA.geojson: ${geojsonLGA}, all.json: ${crimeDataLGA}`)
+
                     if (geojsonLGA.toLowerCase() == crimeDataLGA.toLowerCase()) {
-                        if (!choroplethValue[geojsonLGA]) {
-                            choroplethValue[geojsonLGA] = i;
+
+                        // If object key "VALUE" does not exist in GeoJSON data, add it in and assign it the value of i
+                        // If it does exist, add 1 to the value in the object
+                        if (!data.features[j].properties.VALUE) {
+
+                            data.features[j].properties.VALUE = i;
                         } else {
-                            choroplethValue[geojsonLGA] = i++;
+                            data.features[j].properties.VALUE = i++;
                         }
+
                     } else {
                         continue
                     }
+
                 } else {
                     break;
                 }
+
             }
         }
+
+        // Create a new choropleth layer
+        geojson = L.choropleth(data, {
+
+            // Define what  property in the features to use
+            valueProperty: "VALUE",
+
+            // Set color scale
+            scale: ["#ffffb2", "#b10026"],
+
+            // Number of breaks in step range
+            steps: 10,
+
+            // q for quartile, e for equidistant, k for k-means
+            mode: "q",
+            style: {
+                // Border color
+                color: "#fff",
+                weight: 1,
+                fillOpacity: 0.5
+            },
+
+            // Binding a pop-up to each layer
+            onEachFeature: function (feature, layer) {
+                // Set mouse events to change map styling
+                layer.on({
+                    // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
+                    mouseover: function (event) {
+                        layer = event.target;
+                        layer.setStyle({
+                            fillOpacity: 1
+                        });
+                    },
+                    // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
+                    mouseout: function (event) {
+                        layer = event.target;
+                        layer.setStyle({
+                            fillOpacity: 0.5
+                        });
+                    },
+                    // When a feature (neighborhood) is clicked, it is enlarged to fit the screen
+                    click: function (event) {
+                        myMap.fitBounds(event.target.getBounds());
+                    }
+                });
+
+                layer.bindPopup("<h1>" + feature.properties.ABB_NAME + "</h1>");
+
+            }
+        }).addTo(myMap)
+
         // console.log(choroplethValue);
     });
 
-    console.log(choroplethValue);
-    // Create a new choropleth layer
-    geojson = L.choropleth(data, {
 
-
-        // Define what  property in the features to use
-        valueProperty: function (feature) {
-            if (!feature.properties.LGA_Number) {
-                feature.properties.LGA_Number = Object.values(choroplethValue);
-                console.log(feature.properties.LGA_Number);
-            }
-        },
-
-        // Set color scale
-        scale: ["#ffffb2", "#b10026"],
-
-        // Number of breaks in step range
-        steps: 10,
-
-        // q for quartile, e for equidistant, k for k-means
-        mode: "q",
-        style: {
-            // Border color
-            color: "blue",
-            weight: 1,
-            fillOpacity: 0.5
-        },
-
-        // Binding a pop-up to each layer
-        onEachFeature: function (feature, layer) {
-            layer.bindPopup("<h1>" + feature.properties.ABB_NAME + "</h1>");
-
-        }
-    }).addTo(myMap)
-
-    // // Creating a geoJSON layer with the retrieved data
-    // L.geoJson(data, {
-
-    //     // Style each feature (in this case a neighborhood)
-    //     style: function (feature) {
-    //         return {
-    //             fillColor: getColor(Object.values(choroplethValue)),
-    //             color: "blue",
-    //             // Call the chooseColor function to decide which color to color our neighborhood (color based on borough)
-
-    //             fillOpacity: 0.5,
-    //             weight: 1.5
-    //         };
-    //     },
-    //     // Called on each feature
-    //     onEachFeature: function (feature, layer) {
-    //         // Set mouse events to change map styling
-    //         layer.on({
-    //             // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
-    //             mouseover: function (event) {
-    //                 layer = event.target;
-    //                 layer.setStyle({
-    //                     fillOpacity: 1
-    //                 });
-    //             },
-    //             // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
-    //             mouseout: function (event) {
-    //                 layer = event.target;
-    //                 layer.setStyle({
-    //                     fillOpacity: 0.5
-    //                 });
-    //             },
-    //             // When a feature (neighborhood) is clicked, it is enlarged to fit the screen
-    //             click: function (event) {
-    //                 myMap.fitBounds(event.target.getBounds());
-    //             }
-    //         });
-    //         // Giving each feature a pop-up with information pertinent to it
-    //         layer.bindPopup("<h1>" + feature.properties.ABB_NAME + "</h1>");
-
-    //     }
-    // }).addTo(myMap);
 });
 
 
-
-
-// // Grabbing our GeoJSON data..
-// d3.json(link, function (data) {
-
-//     d3.json(crimeData, function (cData) {
-//         for (var j = 0; j < data.features.length; j++) {
-//             // console.log(data.features[j]);
-//             for (var i = 0; i < cData.length; i++) {
-//                 if (cData[i]["Year"] === 2011) {
-//                     var geojsonLGA = data.features[j].properties.ABB_NAME;
-//                     var crimeDataLGA = cData[i]["Local Government Area"];
-//                     // console.log(`LGA.geojson: ${geojsonLGA}, all.json: ${crimeDataLGA}`)
-//                     if (geojsonLGA.toLowerCase() == crimeDataLGA.toLowerCase()) {
-//                         if (!choroplethValue[geojsonLGA]) {
-//                             choroplethValue[geojsonLGA] = i;
-//                         } else {
-//                             choroplethValue[geojsonLGA] = i++;
-//                         }
-//                     } else {
-//                         continue
-//                     }
-//                 } else {
-//                     break;
-//                 }
-//             }
-//         }
-//         console.log(choroplethValue);
-//     });
-
-//     function getColor(d) {
-//         return d > 5000 ? '#800026' :
-//             d > 3000 ? '#BD0026' :
-//                 d > 2000 ? '#E31A1C' :
-//                     d > 1000 ? '#FC4E2A' :
-//                         d > 500 ? '#FD8D3C' :
-//                             d > 200 ? '#FEB24C' :
-//                                 d > 100 ? '#FED976' :
-//                                     '#FFEDA0';
-//     }
-//     // and soCreating a geoJSON layer with the retrieved data
-//     L.geoJson(data, {
-//         // Style each feature (in this case a neighborhood)
-
-
-//         style: function (feature) {
-
-//             return {
-//                 fillColor: getColor(choroplethValue),
-//                 weight: 2,
-//                 opacity: 1,
-//                 color: 'white',
-//                 dashArray: '3',
-//                 fillOpacity: 0.7
-//             };
-//         },
-
-
-
-//         // // Create a new choropleth layer
-//         // geojson = L.choropleth(data, {
-
-//         //     // Define what  property in the features to use
-//         //     valueProperty: choroplethValue,
-
-//         //     // Set color scale
-//         //     scale: ["#ffffb2", "#b10026"],
-
-//         //     // Number of breaks in step range
-//         //     steps: 10,
-
-//         //     // q for quartile, e for equidistant, k for k-means
-//         //     mode: "q",
-//         //     style: {
-//         //         // Border color
-//         //         color: "#fff",
-//         //         weight: 1,
-//         //         fillOpacity: 0.8
-//         //     },
-
-//         //     // Binding a pop-up to each layer
-//         //     onEachFeature: function (feature, layer) {
-//         //         layer.bindPopup("Zip Code: " + feature.properties.ZIP + "<br>Median Household Income:<br>" +
-//         //             "$" + feature.properties.MHI2016);
-//         //     }
-//         // }).addTo(myMap)
-
-//         //     // Called on each feature
-//         //     onEachFeature: function (feature, layer) {
-//         //         // Set mouse events to change map styling
-//         //         layer.on({
-//         //             // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
-//         //             mouseover: function (event) {
-//         //                 layer = event.target;
-//         //                 layer.setStyle({
-//         //                     fillOpacity: 1
-//         //                 });
-//         //             },
-//         //             // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
-//         //             mouseout: function (event) {
-//         //                 layer = event.target;
-//         //                 layer.setStyle({
-//         //                     fillOpacity: 0.5
-//         //                 });
-//         //             },
-//         //             // When a feature (neighborhood) is clicked, it is enlarged to fit the screen
-//         //             click: function (event) {
-//         //                 myMap.fitBounds(event.target.getBounds());
-//         //             }
-//         //         });
-//         //         // Giving each feature a pop-up with information pertinent to it
-//         //         layer.bindPopup("<h1>" + feature.properties.ABB_NAME + "</h1>");
-
-//         //     }
-//         // }).addTo(myMap);
-
-//     });
-// });
 //=====================================================================
 //========================== Timeline Slider ==========================
 //=====================================================================
