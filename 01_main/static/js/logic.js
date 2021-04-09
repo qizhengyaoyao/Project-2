@@ -15,7 +15,7 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(myMap);
 
 // Use this link to get the geojson data.
-var link = "static/data/LGA.geojson";
+var link = "../static/data/LGA.geojson";
 
 // Grabbing our GeoJSON data..
 d3.json(link, function (data) {
