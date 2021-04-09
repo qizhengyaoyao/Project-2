@@ -33,8 +33,8 @@ def welcome():
     """List all available api routes."""
     return (
         f"<h1>Available Routes:</h1>"
-        f"<h3>/api/v1.0/all<h3>"
-        f"<h3>/api/v1.0/all_type<h3>"
+        f"<h3><a href=api/v1.0/all>/api/v1.0/all</a><h3>"
+        f"<h3><a href=api/v1.0/all_type>/api/v1.0/all_type</a><h3>"
         f"<h3>/api/v1.0/crime_data?&ltfilter_list&gt</h3>"
         f"&ltfilter_list&gt: field1=condition1&field2=condition2&....</br>"
         f"field:</br>"
@@ -45,7 +45,7 @@ def welcome():
         f"<li>year</li>"
         f"</br>"
         f"&ltfilter_list&gt exmaple</br>"
-        f"postcode=3000&suburb=melbourne&lga=melbourne&ampregion=northern metropolitan&year=2011&year=2020</br>"
+        f"<a href=api/v1.0/crime_data?postcode=3000&suburb=melbourne&lga=melbourne&region=northern%20metropolitan&year=2011&year=2020>postcode=3000&suburb=melbourne&lga=melbourne&ampregion=northern metropolitan&year=2011&year=2020</a>"
 
     )
 
