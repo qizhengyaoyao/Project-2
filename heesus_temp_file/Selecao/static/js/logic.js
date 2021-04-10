@@ -15,7 +15,7 @@ var myMap = L.map("map", {
     }).addTo(myMap);
     
     // Use this link to get the geojson data.
-    var link = "static/data/LGA.geojson";
+    var link = "https://data.gov.au/geoserver/vic-local-government-areas-psma-administrative-boundaries/wfs?request=GetFeature&typeName=ckan_bdf92691_c6fe_42b9_a0e2_a4cd716fa811&outputFormat=json";
     
   // Grabbing our GeoJSON data..
 d3.json(link, function(data) {
