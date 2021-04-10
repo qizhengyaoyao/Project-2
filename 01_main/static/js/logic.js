@@ -17,7 +17,7 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 // Use this link to get the geojson data.
 var link = "../static/data/LGA.geojson";
 var geojson;
-var crimeData = "../static/data/all.json";
+var crimeData = "https://vic-crime.herokuapp.com/api/v1.0/all";
 
 function getDataAddMarkers({ label, value, map }) {
     console.log(`Timeline slider is set to ${parseInt(label)}`);
@@ -36,39 +36,39 @@ function getDataAddMarkers({ label, value, map }) {
         // Append crime data to the LGA GeoJSON
         d3.json(crimeData, function (cData) {
 
-            // for (var j = 0; j < data.features.length; j++) {
-            //     // console.log(data.features[j]);
+            for (var j = 0; j < data.features.length; j++) {
+                // console.log(data.features[j]);
 
-            //     for (var i = 0; i < cData.length; i++) {
+                for (var i = 0; i < cData.length; i++) {
 
-            //         if (cData[i]["Year"] === parseInt(label)) {
+                    if (cData[i]["Year"] === parseInt(label)) {
 
-            //             // filter both JSON datasets by LGA name 
-            //             var geojsonLGA = data.features[j].properties.ABB_NAME;
-            //             var crimeDataLGA = cData[i]["Local Government Area"];
-            //             // console.log(`LGA.geojson: ${geojsonLGA}, all.json: ${crimeDataLGA}`)
+                        // filter both JSON datasets by LGA name 
+                        var geojsonLGA = data.features[j].properties.ABB_NAME;
+                        var crimeDataLGA = cData[i]["Local Government Area"];
+                        // console.log(`LGA.geojson: ${geojsonLGA}, all.json: ${crimeDataLGA}`)
 
-            //             if (geojsonLGA.toLowerCase() === crimeDataLGA.toLowerCase()) {
+                        if (geojsonLGA.toLowerCase() === crimeDataLGA.toLowerCase()) {
 
-            //                 // If object key "VALUE" does not exist in GeoJSON data, add it in and assign it the value of i
-            //                 // If it does exist, add 1 to the value in the object
-            //                 if (!data.features[j].properties.VALUE) {
+                            // If object key "VALUE" does not exist in GeoJSON data, add it in and assign it the value of i
+                            // If it does exist, add 1 to the value in the object
+                            if (!data.features[j].properties.VALUE) {
 
-            //                     data.features[j].properties.VALUE = i;
-            //                     console.log(data.features[j].properties.VALUE);
-            //                 } else {
-            //                     data.features[j].properties.VALUE = i++;
-            //                 }
+                                data.features[j].properties.VALUE = i;
+                                console.log(data.features[j].properties.VALUE);
+                            } else {
+                                data.features[j].properties.VALUE = i++;
+                            }
 
-            //             } else {
-            //                 continue
-            //             }
+                        } else {
+                            continue
+                        }
 
-            //         } else {
-            //             break;
-            //         }
+                    } else {
+                        break;
+                    }
 
-            //     }
+                }
 
 
         }

@@ -7,7 +7,7 @@ from flask import (
     request,
     redirect)
 import pymongo
-
+from flask_cors import CORS
 
 #################################################
 # Database Setup
@@ -22,6 +22,7 @@ vic_db = client['vic_crime']
 # Flask Setup
 #################################################
 app = Flask(__name__)
+CORS(app)
 
 #################################################
 # Flask Routes
