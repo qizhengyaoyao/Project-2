@@ -338,6 +338,7 @@ def crime_data_json():
     if (len(region)): query["Region"]={"$in": region}
     if (len(year)): query["Year"]={"$in": year}
 
+    #crime=vic_db.vic_crime_db.find()
     crime=vic_db.vic_crime_db.find(query,{"_id":0})
     crimetp=vic_db.vic_crimetype_db.find({},{"_id":0})
     crimetp_dic=unwrap_crimetp(crimetp)

@@ -17,7 +17,7 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 // Use this link to get the geojson data.
 var link = "../static/data/LGA.geojson";
 var geojson;
-var crimeData = "https://vic-crime.herokuapp.com/api/v1.0/all";
+var crimeData = "https://vic-crime.herokuapp.com/api/v2.0/lga/all";
 
 function getDataAddMarkers({ label, value, map }) {
     console.log(`Timeline slider is set to ${parseInt(label)}`);
