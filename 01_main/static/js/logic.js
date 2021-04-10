@@ -11,7 +11,7 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     maxZoom: 18,
     zoomOffset: -1,
     id: "mapbox/streets-v11",
-    accessToken: "pk.eyJ1IjoidG9tcG8iLCJhIjoiY2ttb3BhcHNrMDljdTJvcXB4Y3J6MnRkbCJ9.TEJneXaFNBW1OoWETwQ5rQ"
+    accessToken: API_KEY
 }).addTo(myMap);
 
 // Use this link to get the geojson data.
@@ -19,9 +19,16 @@ var link = "../static/data/LGA.geojson";
 var geojson;
 var crimeData = "../static/data/all.json";
 
-function getDataAddMarkers(value) {
-    console.log(`Timeline slider is set to ${parseInt(value.label)}`);
+function getDataAddMarkers({ label, value, map }) {
+    console.log(`Timeline slider is set to ${parseInt(label)}`);
 
+    // Clear the choropleth layer at the start of every timeline slider
+    map.eachLayer(function (layer) {
+        console.log(layer);
+        if (geojson) {
+            map.removeLayer(geojson);
+        }
+    })
 
     // Grabbing our GeoJSON data..
     d3.json(link, function (data) {
@@ -29,90 +36,94 @@ function getDataAddMarkers(value) {
         // Append crime data to the LGA GeoJSON
         d3.json(crimeData, function (cData) {
 
-            for (var j = 0; j < data.features.length; j++) {
-                // console.log(data.features[j]);
+            // for (var j = 0; j < data.features.length; j++) {
+            //     // console.log(data.features[j]);
 
-                for (var i = 0; i < cData.length; i++) {
+            //     for (var i = 0; i < cData.length; i++) {
 
-                    if (cData[i]["Year"] === parseInt(value.label)) {
-                        // filter both JSON datasets by LGA name 
-                        var geojsonLGA = data.features[j].properties.ABB_NAME;
-                        var crimeDataLGA = cData[i]["Local Government Area"];
-                        // console.log(`LGA.geojson: ${geojsonLGA}, all.json: ${crimeDataLGA}`)
+            //         if (cData[i]["Year"] === parseInt(label)) {
 
-                        if (geojsonLGA.toLowerCase() == crimeDataLGA.toLowerCase()) {
+            //             // filter both JSON datasets by LGA name 
+            //             var geojsonLGA = data.features[j].properties.ABB_NAME;
+            //             var crimeDataLGA = cData[i]["Local Government Area"];
+            //             // console.log(`LGA.geojson: ${geojsonLGA}, all.json: ${crimeDataLGA}`)
 
-                            // If object key "VALUE" does not exist in GeoJSON data, add it in and assign it the value of i
-                            // If it does exist, add 1 to the value in the object
-                            if (!data.features[j].properties.VALUE) {
+            //             if (geojsonLGA.toLowerCase() === crimeDataLGA.toLowerCase()) {
 
-                                data.features[j].properties.VALUE = i;
-                            } else {
-                                data.features[j].properties.VALUE = i++;
-                            }
+            //                 // If object key "VALUE" does not exist in GeoJSON data, add it in and assign it the value of i
+            //                 // If it does exist, add 1 to the value in the object
+            //                 if (!data.features[j].properties.VALUE) {
 
-                        } else {
-                            continue
-                        }
+            //                     data.features[j].properties.VALUE = i;
+            //                     console.log(data.features[j].properties.VALUE);
+            //                 } else {
+            //                     data.features[j].properties.VALUE = i++;
+            //                 }
 
-                    } else {
-                        break;
-                    }
+            //             } else {
+            //                 continue
+            //             }
 
-                }
-            }
+            //         } else {
+            //             break;
+            //         }
+
+            //     }
+
+
+        }
 
             // Create a new choropleth layer
             geojson = L.choropleth(data, {
 
-                // Define what  property in the features to use
-                valueProperty: "VALUE",
+            // Define what  property in the features to use
+            valueProperty: "VALUE",
 
-                // Set color scale
-                scale: ["#ffffb2", "#b10026"],
+            // Set color scale
+            scale: ["#ffffb2", "#b10026"],
 
-                // Number of breaks in step range
-                steps: 10,
+            // Number of breaks in step range
+            steps: 10,
 
-                // q for quartile, e for equidistant, k for k-means
-                mode: "q",
-                style: {
-                    // Border color
-                    color: "#fff",
-                    weight: 1,
-                    fillOpacity: 0.5
-                },
+            // q for quartile, e for equidistant, k for k-means
+            mode: "q",
+            style: {
+                // Border color
+                color: "#fff",
+                weight: 1,
+                fillOpacity: 0.5
+            },
 
-                // Binding a pop-up to each layer
-                onEachFeature: function (feature, layer) {
-                    // Set mouse events to change map styling
-                    layer.on({
-                        // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
-                        mouseover: function (event) {
-                            layer = event.target;
-                            layer.setStyle({
-                                fillOpacity: 1
-                            });
-                        },
-                        // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
-                        mouseout: function (event) {
-                            layer = event.target;
-                            layer.setStyle({
-                                fillOpacity: 0.5
-                            });
-                        },
-                        // When a feature (neighborhood) is clicked, it is enlarged to fit the screen
-                        click: function (event) {
-                            myMap.fitBounds(event.target.getBounds());
-                        }
-                    });
+            // Binding a pop-up to each layer
+            onEachFeature: function (feature, layer) {
+                // Set mouse events to change map styling
+                layer.on({
+                    // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
+                    mouseover: function (event) {
+                        layer = event.target;
+                        layer.setStyle({
+                            fillOpacity: 1
+                        });
+                    },
+                    // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
+                    mouseout: function (event) {
+                        layer = event.target;
+                        layer.setStyle({
+                            fillOpacity: 0.5
+                        });
+                    },
+                    // When a feature (neighborhood) is clicked, it is enlarged to fit the screen
+                    click: function (event) {
+                        myMap.fitBounds(event.target.getBounds());
+                    }
+                });
 
-                    layer.bindPopup("<h1>" + feature.properties.ABB_NAME + "</h1>");
+                layer.bindPopup("<h1>" + feature.properties.ABB_NAME + "</h1>");
 
-                }
-            }).addTo(myMap)
+            }
+        }).addTo(myMap)
         });
-    });
+});
 };
 
 //=====================================================================
@@ -126,10 +137,10 @@ function getDataAddMarkers(value) {
 // Refer to docs: https://github.com/svitkin/leaflet-timeline-slider
 L.control.timelineSlider({
     timelineItems: [
-        "2020", "2019", "2018",
-        "2017", "2016", "2015",
-        "2014", "2013", "2012",
-        "2011"
+        "2011", "2012", "2013",
+        "2014", "2015", "2016",
+        "2017", "2018", "2019",
+        "2020"
     ],      // timeline dates are created using an array of strings
     changeMap: getDataAddMarkers,       // custom function to update the map based on the timeline items
     position: "bottomright"      // default is "bottomright" if this is preferred
@@ -139,3 +150,156 @@ L.control.timelineSlider({
 //=====================================================================
 //=====================================================================
 //=====================================================================
+
+
+
+// data = {
+//     "type": "FeatureCollection",
+//     "features": [
+//         {
+//             "type": "Feature",
+//             "properties": {
+//                 "title": "Day 1",
+//                 "content": "This is where some people moved to."
+//             },
+//             "geometry": {
+//                 "type": "Point",
+//                 "coordinates": [
+//                     -73.7949,
+//                     40.7282,
+//                     1
+//                 ]
+//             }
+//         },
+//         {
+//             "type": "Feature",
+//             "properties": {
+//                 "title": "The Next Day",
+//                 "content": "This is where some people grooved to."
+//             },
+//             "geometry": {
+//                 "type": "Point",
+//                 "coordinates": [
+//                     -74.3838,
+//                     40.9148,
+//                     1
+//                 ]
+//             }
+//         },
+//         {
+//             "type": "Feature",
+//             "properties": {
+//                 "title": "Amazing Event",
+//                 "content": "This is where they went to have fun."
+//             },
+//             "geometry": {
+//                 "type": "Point",
+//                 "coordinates": [
+//                     4.899431,
+//                     52.379189,
+//                     1
+//                 ]
+//             }
+//         },
+//         {
+//             "type": "Feature",
+//             "properties": {
+//                 "title": "1776",
+//                 "content": "This where they went when the revolution had begun."
+//             },
+//             "geometry": {
+//                 "type": "Point",
+//                 "coordinates": [
+//                     -71.3489484,
+//                     42.4603719,
+//                     1
+//                 ]
+//             }
+//         },
+//         {
+//             "type": "Feature",
+//             "properties": {
+//                 "title": "1776",
+//                 "content": "This where they went when the revolution had begun."
+
+//             },
+//             "geometry": {
+//                 "type": "Point",
+//                 "coordinates": [
+//                     -71.2272,
+//                     42.4473,
+//                     1
+//                 ]
+//             }
+//         },
+//         {
+//             "type": "Feature",
+//             "properties": {
+//                 "title": "1984",
+//                 "content": "So they all came here...and disappeared without a trace!"
+//             },
+//             "geometry": {
+//                 "type": "Point",
+//                 "coordinates": [
+//                     -0.118092,
+//                     51.509865,
+//                     1
+//                 ]
+//             }
+//         },
+//         {
+//             "type": "Feature",
+//             "properties": {
+//                 "title": "12/22/63",
+//                 "content": "Now, this can be quite the scary place."
+//             },
+//             "geometry": {
+//                 "type": "Point",
+//                 "coordinates": [
+//                     -70.2553259,
+//                     43.661471,
+//                     1
+//                 ]
+//             }
+//         },
+//     ]
+// }
+
+
+// var mymap = L.map('map')
+
+// L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+// }).addTo(mymap);
+
+// getDataAddMarkers = function ({ label, value, map, exclamation }) {
+//     map.eachLayer(function (layer) {
+//         if (layer instanceof L.Marker) {
+//             map.removeLayer(layer);
+//         }
+//     });
+
+//     filteredData = data.features.filter(function (i, n) {
+//         return i.properties.title === label;
+//     });
+
+//     var markerArray = [];
+//     L.geoJson(filteredData, {
+//         onEachFeature: function onEachFeature(feature, layer) {
+//             content = `${exclamation} <br> ${feature.properties.content} <br> (${Math.round(value / 6 * 100)}% done with story)`
+//             var popup = L.popup().setContent(content);
+//             layer.bindPopup(popup);
+//             markerArray.push(layer);
+//         }
+//     }).addTo(map);
+
+//     var markerGroup = L.featureGroup(markerArray);
+//     map.fitBounds(markerGroup.getBounds()).setZoom(12);
+// };
+
+// L.control.timelineSlider({
+//     timelineItems: ["Day 1", "The Next Day", "Amazing Event", "1776", "12/22/63", "1984"],
+//     changeMap: getDataAddMarkers,
+//     extraChangeMapParams: { exclamation: "Hello World!" }
+// })
+//     .addTo(mymap);
