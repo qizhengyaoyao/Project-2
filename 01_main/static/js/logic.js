@@ -18,13 +18,10 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 var lgaAPI = "https://opendata.arcgis.com/datasets/0f6f122c3ad04cc9bb97b025661c31bd_0.geojson";
 var suburbAPI = "https://data.gov.au/geoserver/vic-suburb-locality-boundaries-psma-administrative-boundaries/wfs?request=GetFeature&typeName=ckan_af33dd8c_0534_4e18_9245_fc64440f742e&outputFormat=json";
 
-var crimeData = "https://vic-crime.herokuapp.com/api/v1.0/all";
-
 var geojson;
 
-
-var crimeData2 = "https://vic-crime.herokuapp.com/api/v2.0/lga/all";
-var crimeData3 = "";
+var lgaCrimeData = "https://vic-crime.herokuapp.com/api/v2.0/lga/all";
+var suburbCrimeData = "";
 
 
 
@@ -47,7 +44,7 @@ function getDataAddMarkers({ label, value, map }) {
     d3.json(lgaAPI, function (data) {
 
         // Append crime data to the LGA GeoJSON
-        d3.json(crimeData2, function (cData) {
+        d3.json(lgaCrimeData, function (cData) {
 
             // console.log(cData[label]);
 
@@ -70,136 +67,95 @@ function getDataAddMarkers({ label, value, map }) {
             };
 
 
+            // }
+
+            // for (var j = 0; j < data.features.length; j++) {
+            //     // console.log(data.features[j]);
+
+            //     for (var i = 0; i < cData.length; i++) {
+
+            //         if (cData[i]["Year"] === parseInt(label)) {
+
+            //             // filter both JSON datasets by LGA name 
+            //             var geojsonLGA = data.features[j].properties.ABB_NAME;
+            //             var crimeDataLGA = cData[i]["Local Government Area"];
+            //             // console.log(`LGA.geojson: ${geojsonLGA}, all.json: ${crimeDataLGA}`)
+
+            //             if (geojsonLGA.toLowerCase() === crimeDataLGA.toLowerCase()) {
+
+            //                 // If object key "VALUE" does not exist in GeoJSON data, add it in and assign it the value of i
+            //                 // If it does exist, add 1 to the value in the object
+            //                 if (!data.features[j].properties.VALUE) {
+
+            //                     data.features[j].properties.VALUE = i;
+            //                     console.log(data.features[j].properties.VALUE);
+            //                 } else {
+            //                     data.features[j].properties.VALUE = i++;
+            //                 }
+
+            //             } else {
+            //                 continue;
+            //             }
+
+            //         } else {
+            //             break;
+            //         }
+
+            //     }
+
+            // }
+
+            // Create a new choropleth layer
+            geojson = L.choropleth(data, {
+
+                // Define what  property in the features to use
+                valueProperty: "CRIME_TOTAL",
 
 
-            for (var j = 0; j < data.features.length; j++) {
-                // console.log(data.features[j]);
+                // Set color scale
+                scale: ["#ffffb2", "#b10026"],
 
-                for (var i = 0; i < cData.length; i++) {
+                // Number of breaks in step range
+                steps: 10,
 
-                    if (cData[i]["Year"] === parseInt(label)) {
+                // q for quartile, e for equidistant, k for k-means
+                mode: "q",
+                style: {
+                    // Border color
+                    color: "#fff",
+                    weight: 1,
+                    fillOpacity: 0.5
+                },
 
-                        // filter both JSON datasets by LGA name 
-                        var geojsonLGA = data.features[j].properties.ABB_NAME;
-                        var crimeDataLGA = cData[i]["Local Government Area"];
-                        // console.log(`LGA.geojson: ${geojsonLGA}, all.json: ${crimeDataLGA}`)
-
-                        if (geojsonLGA.toLowerCase() === crimeDataLGA.toLowerCase()) {
-
-                            // If object key "VALUE" does not exist in GeoJSON data, add it in and assign it the value of i
-                            // If it does exist, add 1 to the value in the object
-                            if (!data.features[j].properties.VALUE) {
-
-                                data.features[j].properties.VALUE = i;
-                                console.log(data.features[j].properties.VALUE);
-                            } else {
-                                data.features[j].properties.VALUE = i++;
-                            }
-
-                            //             } else {
-                            //                 continue;
-                            //             }
-
-                        } else {
-                            break;
-                        }
-
-                    }
-
-                    // }
-
-                    // for (var j = 0; j < data.features.length; j++) {
-                    //     // console.log(data.features[j]);
-
-                    //     for (var i = 0; i < cData.length; i++) {
-
-                    //         if (cData[i]["Year"] === parseInt(label)) {
-
-                    //             // filter both JSON datasets by LGA name 
-                    //             var geojsonLGA = data.features[j].properties.ABB_NAME;
-                    //             var crimeDataLGA = cData[i]["Local Government Area"];
-                    //             // console.log(`LGA.geojson: ${geojsonLGA}, all.json: ${crimeDataLGA}`)
-
-                    //             if (geojsonLGA.toLowerCase() === crimeDataLGA.toLowerCase()) {
-
-                    //                 // If object key "VALUE" does not exist in GeoJSON data, add it in and assign it the value of i
-                    //                 // If it does exist, add 1 to the value in the object
-                    //                 if (!data.features[j].properties.VALUE) {
-
-                    //                     data.features[j].properties.VALUE = i;
-                    //                     console.log(data.features[j].properties.VALUE);
-                    //                 } else {
-                    //                     data.features[j].properties.VALUE = i++;
-                    //                 }
-
-                    //             } else {
-                    //                 continue;
-                    //             }
-
-                    //         } else {
-                    //             break;
-                    //         }
-
-                    //     }
-
-                    // }
-
-
-
-
-
-
-                    // Create a new choropleth layer
-                    geojson = L.choropleth(data, {
-
-                        // Define what  property in the features to use
-                        valueProperty: "CRIME_TOTAL",
-
-
-                        // Set color scale
-                        scale: ["#ffffb2", "#b10026"],
-
-                        // Number of breaks in step range
-                        steps: 10,
-
-                        // q for quartile, e for equidistant, k for k-means
-                        mode: "q",
-                        style: {
-                            // Border color
-                            color: "#fff",
-                            weight: 1,
-                            fillOpacity: 0.5
-                        },
-
-                        // Binding a pop-up to each layer
-                        onEachFeature: function (feature, layer) {
-                            // Set mouse events to change map styling
-                            layer.on({
-                                // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
-                                mouseover: function (event) {
-                                    layer = event.target;
-                                    layer.setStyle({
-                                        fillOpacity: 1
-                                    });
-                                },
-                                // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
-                                mouseout: function (event) {
-                                    layer = event.target;
-                                    layer.setStyle({
-                                        fillOpacity: 0.5
-                                    });
-                                },
-                                // When a feature (neighborhood) is clicked, it is enlarged to fit the screen
-                                click: function (event) {
-                                    myMap.fitBounds(event.target.getBounds());
-                                }
+                // Binding a pop-up to each layer
+                onEachFeature: function (feature, layer) {
+                    // Set mouse events to change map styling
+                    layer.on({
+                        // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
+                        mouseover: function (event) {
+                            layer = event.target;
+                            layer.setStyle({
+                                fillOpacity: 1
                             });
-
-                            layer.bindPopup("<h1>" + feature.properties.ABB_NAME + "</h1>");
-
+                        },
+                        // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
+                        mouseout: function (event) {
+                            layer = event.target;
+                            layer.setStyle({
+                                fillOpacity: 0.5
+                            });
+                        },
+                        // When a feature (neighborhood) is clicked, it is enlarged to fit the screen
+                        click: function (event) {
+                            myMap.fitBounds(event.target.getBounds());
                         }
-                    }).addTo(myMap)
-                });
+                    });
+
+                    layer.bindPopup("<h1>" + feature.properties.ABB_NAME + "</h1>");
+
+                }
+            }).addTo(myMap)
+        });
     });
 };
 
