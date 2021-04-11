@@ -16,8 +16,8 @@ var myMap = L.map("map", {
 
 // Use this link to get the geojson data.
 // const lgaAPI = "https://opendata.arcgis.com/datasets/0f6f122c3ad04cc9bb97b025661c31bd_0.geojson";
+const lgaAPI = "../static/data/LGA.geojson" // Only use this if the variable above does not work!
 const suburbAPI = "https://data.gov.au/geoserver/vic-suburb-locality-boundaries-psma-administrative-boundaries/wfs?request=GetFeature&typeName=ckan_af33dd8c_0534_4e18_9245_fc64440f742e&outputFormat=json";
-const lgaAPI = "../static/data/LGA.geojson"
 var geojson;
 
 const lgaCrimeData = "https://vic-crime.herokuapp.com/api/v2.0/lga/all";
@@ -47,6 +47,10 @@ function getDataAddMarkers({ label, value, map }) {
             var crimeDivisions = {};
             var crimeJSON = cData[label];
 
+
+            // Store the offence/crime division code (e.g. A, B, C etc.)
+            // and the offence/crime division into the variable crimeDivisions
+            // for use in the function getLGACrime that will populate the popup
             d3.json(crimeTypes, function (cTypes) {
                 // console.log(cTypes)
                 for (let i in cTypes) {
@@ -77,18 +81,18 @@ function getDataAddMarkers({ label, value, map }) {
                 };
 
 
-
+                // Populate the popup with relevant crime division data to each LGA
                 function getLGACrime(lgaName) {
-                    try {
+                    try { // in case our data is incomplete compared to the LGA geoJSON
                         var filteredLGA = Object.entries(cData[label][lgaName]).filter((result, i) => result);
-                        let output = [];
+                        var output = [];
                         Object.entries(filteredLGA[3][1].Div).forEach((key, value) => {
                             output.push(`${crimeDivisions[key[0]]}: ${key[1]}`);
                         })
-                    } catch (err) {
+                    } catch (err) { // catch any errors from a lack of data, etc.
                         console.log("no data for this LGA!");
                     }
-                    return (output);
+                    return output;
                 };
 
                 // Create a new choropleth layer
@@ -136,11 +140,11 @@ function getDataAddMarkers({ label, value, map }) {
                                 myMap.fitBounds(event.target.getBounds());
                             }
                         });
-
+                        // call getLGACrime function, parse LGA Name in capitalised format to match our lgaCrimeData json
                         layer.bindPopup(
-                            `< h1 > ${feature.properties.ABB_NAME}</h1 >
+                            `<h1> ${feature.properties.ABB_NAME}</h1>
                     <hr>
-                        <h3>${getLGACrime(feature.properties.ABB_NAME.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))))}
+                        <h3>${getLGACrime(feature.properties.ABB_NAME.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))))}</h3>
                         `
                         );
 
