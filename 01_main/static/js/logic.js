@@ -15,26 +15,62 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(myMap);
 
 // Use this link to get the geojson data.
-var link = "../static/data/LGA.geojson";
+var lgaAPI = "https://opendata.arcgis.com/datasets/0f6f122c3ad04cc9bb97b025661c31bd_0.geojson";
+var suburbAPI = "https://data.gov.au/geoserver/vic-suburb-locality-boundaries-psma-administrative-boundaries/wfs?request=GetFeature&typeName=ckan_af33dd8c_0534_4e18_9245_fc64440f742e&outputFormat=json";
+
+var crimeData = "https://vic-crime.herokuapp.com/api/v1.0/all";
+
 var geojson;
-var crimeData = "../static/data/all.json";
+
+
+var crimeData2 = "https://vic-crime.herokuapp.com/api/v2.0/lga/all";
+var crimeData3 = "";
+
+
+
 
 function getDataAddMarkers({ label, value, map }) {
     console.log(`Timeline slider is set to ${parseInt(label)}`);
 
     // Clear the choropleth layer at the start of every timeline slider
     map.eachLayer(function (layer) {
-        console.log(layer);
         if (geojson) {
             map.removeLayer(geojson);
         }
     })
 
+
+
+
+
     // Grabbing our GeoJSON data..
-    d3.json(link, function (data) {
+    d3.json(lgaAPI, function (data) {
 
         // Append crime data to the LGA GeoJSON
-        d3.json(crimeData, function (cData) {
+        d3.json(crimeData2, function (cData) {
+
+            // console.log(cData[label]);
+
+            var crimeJSON = cData[label];
+
+            for (let i = 0; i < data.features.length; i++) {
+                var lgaJSON = data.features[i].properties;
+                //console.log(lgaName);
+                for (let j in crimeJSON) {
+                    if (lgaJSON.ABB_NAME == j.toUpperCase()) {
+                        console.log(lgaJSON.CRIME_TOTAL);
+                        console.log(`${lgaJSON.ABB_NAME} is equal to ${j}`)
+                        lgaJSON.CRIME_TOTAL = crimeJSON[j].crime.Total;
+                        console.log(crimeJSON[j].crime.Total);
+                        console.log(lgaJSON.CRIME_TOTAL);
+                    } else {
+                        continue;
+                    }
+                };
+            };
+
+
+
 
             // for (var j = 0; j < data.features.length; j++) {
             //     // console.log(data.features[j]);
@@ -61,7 +97,7 @@ function getDataAddMarkers({ label, value, map }) {
             //                 }
 
             //             } else {
-            //                 continue
+            //                 continue;
             //             }
 
             //         } else {
@@ -70,60 +106,101 @@ function getDataAddMarkers({ label, value, map }) {
 
             //     }
 
+            // }
 
-        }
+            // for (var j = 0; j < data.features.length; j++) {
+            //     // console.log(data.features[j]);
+
+            //     for (var i = 0; i < cData.length; i++) {
+
+            //         if (cData[i]["Year"] === parseInt(label)) {
+
+            //             // filter both JSON datasets by LGA name 
+            //             var geojsonLGA = data.features[j].properties.ABB_NAME;
+            //             var crimeDataLGA = cData[i]["Local Government Area"];
+            //             // console.log(`LGA.geojson: ${geojsonLGA}, all.json: ${crimeDataLGA}`)
+
+            //             if (geojsonLGA.toLowerCase() === crimeDataLGA.toLowerCase()) {
+
+            //                 // If object key "VALUE" does not exist in GeoJSON data, add it in and assign it the value of i
+            //                 // If it does exist, add 1 to the value in the object
+            //                 if (!data.features[j].properties.VALUE) {
+
+            //                     data.features[j].properties.VALUE = i;
+            //                     console.log(data.features[j].properties.VALUE);
+            //                 } else {
+            //                     data.features[j].properties.VALUE = i++;
+            //                 }
+
+            //             } else {
+            //                 continue;
+            //             }
+
+            //         } else {
+            //             break;
+            //         }
+
+            //     }
+
+            // }
+
+
+
+
+
 
             // Create a new choropleth layer
             geojson = L.choropleth(data, {
 
-            // Define what  property in the features to use
-            valueProperty: "VALUE",
+                // Define what  property in the features to use
+                valueProperty: "CRIME_TOTAL",
 
-            // Set color scale
-            scale: ["#ffffb2", "#b10026"],
 
-            // Number of breaks in step range
-            steps: 10,
+                // Set color scale
+                scale: ["#ffffb2", "#b10026"],
 
-            // q for quartile, e for equidistant, k for k-means
-            mode: "q",
-            style: {
-                // Border color
-                color: "#fff",
-                weight: 1,
-                fillOpacity: 0.5
-            },
+                // Number of breaks in step range
+                steps: 10,
 
-            // Binding a pop-up to each layer
-            onEachFeature: function (feature, layer) {
-                // Set mouse events to change map styling
-                layer.on({
-                    // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
-                    mouseover: function (event) {
-                        layer = event.target;
-                        layer.setStyle({
-                            fillOpacity: 1
-                        });
-                    },
-                    // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
-                    mouseout: function (event) {
-                        layer = event.target;
-                        layer.setStyle({
-                            fillOpacity: 0.5
-                        });
-                    },
-                    // When a feature (neighborhood) is clicked, it is enlarged to fit the screen
-                    click: function (event) {
-                        myMap.fitBounds(event.target.getBounds());
-                    }
-                });
+                // q for quartile, e for equidistant, k for k-means
+                mode: "q",
+                style: {
+                    // Border color
+                    color: "#fff",
+                    weight: 1,
+                    fillOpacity: 0.5
+                },
 
-                layer.bindPopup("<h1>" + feature.properties.ABB_NAME + "</h1>");
+                // Binding a pop-up to each layer
+                onEachFeature: function (feature, layer) {
+                    // Set mouse events to change map styling
+                    layer.on({
+                        // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
+                        mouseover: function (event) {
+                            layer = event.target;
+                            layer.setStyle({
+                                fillOpacity: 1
+                            });
+                        },
+                        // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
+                        mouseout: function (event) {
+                            layer = event.target;
+                            layer.setStyle({
+                                fillOpacity: 0.5
+                            });
+                        },
+                        // When a feature (neighborhood) is clicked, it is enlarged to fit the screen
+                        click: function (event) {
+                            myMap.fitBounds(event.target.getBounds());
+                        }
+                    });
 
-            }
-        }).addTo(myMap)
+                    layer.bindPopup("<h1>" + feature.properties.ABB_NAME + "</h1>");
+
+                }
+            }).addTo(myMap)
         });
-});
+    });
 };
 
 //=====================================================================
