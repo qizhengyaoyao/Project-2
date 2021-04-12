@@ -1,10 +1,10 @@
 // Creating map object
 var myMap = L.map("map", {
-    center: [-37.840935, 144.946457],
-    zoom: 6
+    center: [-37.814563, 144.97026699999998],
+    zoom: 20
 });
 
-// // Adding tile layer
+// Adding tile layer
 // L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
 //     attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
 //     tileSize: 512,
@@ -20,12 +20,9 @@ const lgaAPI = "https://opendata.arcgis.com/datasets/0f6f122c3ad04cc9bb97b025661
 const suburbAPI = "https://data.gov.au/geoserver/vic-suburb-locality-boundaries-psma-administrative-boundaries/wfs?request=GetFeature&typeName=ckan_af33dd8c_0534_4e18_9245_fc64440f742e&outputFormat=json";
 var geojson;
 
-const lgaCrimeData = "/api/v2.0/lga/all";
+const lgaCrimeData = "/api/v3.0/lga/all?off_field=subdiv";
 const crimeTypes = "/api/v2.0/all_type";
 const suburbCrimeData = "";
-
-
-
 
 function getDataAddMarkers({ label, value, map }) {
     console.log(`Timeline slider is set to ${parseInt(label)}`);
