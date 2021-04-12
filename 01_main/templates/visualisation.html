@@ -11,8 +11,11 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="../assets/img/favicon.png" rel="icon">
-  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <!-- <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
+
+  <link href="{{ url_for('static', filename='assets/img/favicon.png') }}" rel="icon">
+  <link href="{{ url_for('static', filename='assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link
@@ -46,6 +49,7 @@
 
   <!-- Our CSS -->
   <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+  <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"> -->
 </head>
 
 <body>
@@ -55,16 +59,16 @@
     <div class="container d-flex align-items-center justify-content-between">
 
       <div class="logo">
-        <h1><a href="index.html">Victorian Crime Data</a></h1>
+        <h1><a href="{{ url_for('Welcome') }}">Victorian Crime Data</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="../assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto " href="index.html">Home</a></li>
-          <li><a class="nav-link scrollto" href="data.html">About</a></li>
-          <li><a class="nav-link scrollto" href="visualisation.html">Visualisation</a></li>
+          <li><a class="nav-link scrollto " href="{{ url_for('Welcome') }}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('data') }}">About</a></li>
+          <li><a class="nav-link scrollto" href="{{ url_for('visualisation') }}">Visualisation</a></li>
           <!-- <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
           <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li> -->
           <!-- <li><a class="nav-link scrollto" href="index.html">Team</a></li> -->
@@ -102,7 +106,7 @@
         <div class="d-flex justify-content-between align-items-center">
           <h2>Map Visualisation</h2>
           <ol>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="{{ url_for('Welcome') }}">Home</a></li>
             <li>Visualisation</li>
           </ol>
         </div>
@@ -224,7 +228,7 @@
   <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="../assets/js/main.js"></script>
+  <script src="static/assets/js/main.js"></script>
 
 </body>
 

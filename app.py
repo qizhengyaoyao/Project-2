@@ -21,6 +21,8 @@ vic_db = client['vic_crime']
 #################################################
 # Flask Setup
 #################################################
+# template_dir = os.path.abspath('./01_main/templates')
+# app = Flask(__name__, template_folder=template_dir)
 app = Flask(__name__)
 CORS(app)
 
@@ -29,6 +31,19 @@ CORS(app)
 #################################################
 
 @app.route("/")
+@app.route("/index")
+def Welcome():
+    return render_template("index.html")
+
+@app.route("/data")
+def data():
+    return render_template("data.html")
+
+@app.route("/visualisation")
+def visualisation():
+    return render_template("visualisation.html")
+
+@app.route("/api_doc")
 def welcome():
     """List all available api routes."""
     return (
