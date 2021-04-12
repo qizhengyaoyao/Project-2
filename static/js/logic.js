@@ -1,3 +1,4 @@
+const API_KEY = "pk.eyJ1IjoicWl6aGVuZ3lhb3lhbyIsImEiOiJja21vZTFydDMwNW9qMm50OWk2aXNxZ21nIn0.Qrth5gE3dGRmssysay7XlQ";
 // Creating map object
 var myMap = L.map("map", {
     center: [-37.814563, 144.97026699999998],
@@ -5,14 +6,14 @@ var myMap = L.map("map", {
 });
 
 // Adding tile layer
-// L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-//     attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-//     tileSize: 512,
-//     maxZoom: 18,
-//     zoomOffset: -1,
-//     id: "mapbox/streets-v11",
-//     accessToken: API_KEY
-// }).addTo(myMap);
+L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+    tileSize: 512,
+    maxZoom: 18,
+    zoomOffset: -1,
+    id: "mapbox/streets-v11",
+    accessToken: API_KEY
+}).addTo(myMap);
 
 
 
