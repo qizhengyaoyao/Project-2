@@ -14,6 +14,8 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: API_KEY
 }).addTo(myMap);
 
+
+
 // Use this link to get the geojson data.
 const lgaAPI = "https://opendata.arcgis.com/datasets/0f6f122c3ad04cc9bb97b025661c31bd_0.geojson";
 // const lgaAPI = "../static/data/LGA.geojson" // Only use this if the variable above does not work!
