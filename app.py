@@ -15,7 +15,7 @@ import config
 #################################################
 client = pymongo.MongoClient(os.getenv("MONGODB_URI", config.url))
 
-API_KEY=os.getenv("API_KEY", config.API_KEY)
+# API_KEY=os.getenv("API_KEY", config.API_KEY)
 
 vic_db = client['vic_crime']
 
@@ -42,7 +42,8 @@ def data():
 
 @app.route("/visualisation")
 def visualisation():
-    return render_template("visualisation.html", API_KEY=API_KEY)
+    return render_template("visualisation.html")
+    # return render_template("visualisation.html", API_KEY=API_KEY)
 
 @app.route("/api_doc")
 def welcome():
