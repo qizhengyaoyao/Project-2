@@ -8,12 +8,13 @@ from flask import (
     redirect)
 import pymongo
 from flask_cors import CORS
-import config
+# import config
 
 #################################################
 # Database Setup
 #################################################
-client = pymongo.MongoClient(os.getenv("MONGODB_URI", config.url))
+url = "mongodb+srv://mahjong:mahjong@cluster0.pyqix.mongodb.net/vic_crime?retryWrites=true&w=majority"
+client = pymongo.MongoClient(os.getenv("MONGODB_URI", url))
 
 # API_KEY=os.getenv("API_KEY", config.API_KEY)
 
