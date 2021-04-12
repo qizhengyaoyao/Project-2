@@ -87,7 +87,7 @@ function getDataAddMarkers({ label, value, map }) {
                         var filteredLGA = Object.entries(cData[label][lgaName]).filter((result, i) => result);
                         var output = [];
                         Object.entries(filteredLGA[3][1].Div).forEach((key, value) => {
-                            output.push(`${crimeDivisions[key[0]]}: ${key[1]}`);
+                            output.push(`<b>${crimeDivisions[key[0]]}</b>:<p style="text-align:center;">${key[1]}</p><p></p>`);
                         })
                     } catch (err) { // catch any errors from a lack of data, etc.
                         console.log("no data for this LGA!");
@@ -141,11 +141,11 @@ function getDataAddMarkers({ label, value, map }) {
                             }
                         });
                         // call getLGACrime function, parse LGA Name in capitalised format to match our lgaCrimeData json
-                        layer.bindPopup(
-                            `<h1> ${feature.properties.ABB_NAME}</h1>
-                    <hr>
-                        <h3>${getLGACrime(feature.properties.ABB_NAME.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))))}</h3>
-                        `
+                        layer.bindPopup(  `<h2><b> ${feature.properties.ABB_NAME} <b></h2>
+                                          <hr>
+                                          <h5>${getLGACrime(feature.properties.ABB_NAME.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))))}</h5>
+                                          <hr>
+                                          `
                         );
 
                     }
