@@ -20,8 +20,8 @@ const lgaAPI = "https://opendata.arcgis.com/datasets/0f6f122c3ad04cc9bb97b025661
 const suburbAPI = "https://data.gov.au/geoserver/vic-suburb-locality-boundaries-psma-administrative-boundaries/wfs?request=GetFeature&typeName=ckan_af33dd8c_0534_4e18_9245_fc64440f742e&outputFormat=json";
 var geojson;
 
-const lgaCrimeData = "https://vic-crime.herokuapp.com/api/v2.0/lga/all?output=div";
-const crimeTypes = "https://vic-crime.herokuapp.com/api/v2.0/all_type";
+const lgaCrimeData = "/api/v2.0/lga/all";
+const crimeTypes = "/api/v2.0/all_type";
 const suburbCrimeData = "";
 
 

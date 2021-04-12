@@ -102,8 +102,8 @@ def all_crime():
 
 @app.route("/api/v2.0/all")
 def all_crime_json():
-    output=request.args.getlist('output')
-    output=[x.lower() for x in output]
+    off_field=request.args.getlist('off_field')
+    off_field=[x.lower() for x in off_field]
     
     # Create our session (link) from Python to the DB
     crime=vic_db.vic_crime_db.find({},{"_id":0})
@@ -130,12 +130,12 @@ def all_crime_json():
 
             all_crime[year][suburb]["crime"]={}
             all_crime[year][suburb]["crime"]["Total"]=0
-            if "div" in output: 
+            if "div" not in off_field: 
                 all_crime[year][suburb]["crime"]["Div"]={}
                 for code in crimetp_dic["Offence Division code"]:
                     all_crime[year][suburb]["crime"]["Div"][code]=0
             
-            if "subdiv" in output: 
+            if "subdiv" not in off_field: 
                 all_crime[year][suburb]["crime"]["Subdiv"]={}
                 for code in crimetp_dic["Offence Subdivision code"]:
                     all_crime[year][suburb]["crime"]["Subdiv"][code]=0
@@ -144,9 +144,9 @@ def all_crime_json():
             sub_code=crimetp_dic["Offence Subdivision code"][idx]
             div_code=crimetp_dic["Offence Division code"][idx]
             all_crime[year][suburb]["crime"]["Total"]+=x[sub_code]
-            if "div" in output: 
+            if "div" not in off_field: 
                 all_crime[year][suburb]["crime"]["Div"][div_code]+=x[sub_code]
-            if "subdiv" in output: 
+            if "subdiv" not in off_field: 
                 all_crime[year][suburb]["crime"]["Subdiv"][sub_code]=x[sub_code]
             
             
@@ -155,8 +155,8 @@ def all_crime_json():
 
 @app.route("/api/v2.0/lga/all")
 def lga_all_crime_json():
-    output=request.args.getlist('output')
-    output=[x.lower() for x in output]
+    off_field=request.args.getlist('off_field')
+    off_field=[x.lower() for x in off_field]
 
     # Create our session (link) from Python to the DB
     crime=vic_db.vic_crime_db.find({},{"_id":0})
@@ -180,11 +180,11 @@ def lga_all_crime_json():
             lga_crime[year][lga]["Region"]=x["Region"]
             lga_crime[year][lga]["crime"]={}
             lga_crime[year][lga]["crime"]["Total"]=0
-            if "div" in output: 
+            if "div" not in off_field: 
                 lga_crime[year][lga]["crime"]["Div"]={}
                 for code in crimetp_dic["Offence Division code"]:
                     lga_crime[year][lga]["crime"]["Div"][code]=0
-            if "subdiv" in output: 
+            if "subdiv" not in off_field: 
                 lga_crime[year][lga]["crime"]["Subdiv"]={}
                 for code in crimetp_dic["Offence Subdivision code"]:
                     lga_crime[year][lga]["crime"]["Subdiv"][code]=0
@@ -193,17 +193,17 @@ def lga_all_crime_json():
             sub_code=crimetp_dic["Offence Subdivision code"][idx]
             div_code=crimetp_dic["Offence Division code"][idx]
             lga_crime[year][lga]["crime"]["Total"]+=x[sub_code]
-            if "div" in output: 
+            if "div" not in off_field: 
                 lga_crime[year][lga]["crime"]["Div"][div_code]+=x[sub_code]
-            if "subdiv" in output: 
+            if "subdiv" not in off_field: 
                 lga_crime[year][lga]["crime"]["Subdiv"][sub_code]+=x[sub_code]
 
     return jsonify(lga_crime)
 
 @app.route("/api/v2.0/region/all")
 def region_all_crime_json():
-    output=request.args.getlist('output')
-    output=[x.lower() for x in output]
+    off_field=request.args.getlist('off_field')
+    off_field=[x.lower() for x in off_field]
 
     # Create our session (link) from Python to the DB
     crime=vic_db.vic_crime_db.find({},{"_id":0})
@@ -226,11 +226,11 @@ def region_all_crime_json():
             region_crime[year][region]["Region"]=region
             region_crime[year][region]["crime"]={}
             region_crime[year][region]["crime"]["Total"]=0
-            if "div" in output: 
+            if "div" not in off_field: 
                 region_crime[year][region]["crime"]["Div"]={}
                 for code in crimetp_dic["Offence Division code"]:
                     region_crime[year][region]["crime"]["Div"][code]=0
-            if "subdiv" in output: 
+            if "subdiv" not in off_field: 
                 region_crime[year][region]["crime"]["Subdiv"]={}
                 for code in crimetp_dic["Offence Subdivision code"]:
                     region_crime[year][region]["crime"]["Subdiv"][code]=0
@@ -239,17 +239,17 @@ def region_all_crime_json():
             sub_code=crimetp_dic["Offence Subdivision code"][idx]
             div_code=crimetp_dic["Offence Division code"][idx]
             region_crime[year][region]["crime"]["Total"]+=x[sub_code]
-            if "div" in output: 
+            if "div" not in off_field: 
                 region_crime[year][region]["crime"]["Div"][div_code]+=x[sub_code]
-            if "subdiv" in output: 
+            if "subdiv" not in off_field: 
                 region_crime[year][region]["crime"]["Subdiv"][sub_code]+=x[sub_code]
 
     return jsonify(region_crime)
 
 @app.route("/api/v2.0/vic/all")
 def vic_all_crime_json():
-    output=request.args.getlist('output')
-    output=[x.lower() for x in output]
+    off_field=request.args.getlist('off_field')
+    off_field=[x.lower() for x in off_field]
 
     # Create our session (link) from Python to the DB
     crime=vic_db.vic_crime_db.find({},{"_id":0})
@@ -268,11 +268,11 @@ def vic_all_crime_json():
             vic_crime[year]["Year"]=year
             vic_crime[year]["crime"]={}
             vic_crime[year]["crime"]["Total"]=0
-            if "div" in output: 
+            if "div" not in off_field: 
                 vic_crime[year]["crime"]["Div"]={}
                 for code in crimetp_dic["Offence Division code"]:
                     vic_crime[year]["crime"]["Div"][code]=0
-            if "subdiv" in output: 
+            if "subdiv" not in off_field: 
                 vic_crime[year]["crime"]["Subdiv"]={}
                 for code in crimetp_dic["Offence Subdivision code"]:
                     vic_crime[year]["crime"]["Subdiv"][code]=0
@@ -281,9 +281,9 @@ def vic_all_crime_json():
             sub_code=crimetp_dic["Offence Subdivision code"][idx]
             div_code=crimetp_dic["Offence Division code"][idx]
             vic_crime[year]["crime"]["Total"]+=x[sub_code]
-            if "div" in output: 
+            if "div" not in off_field: 
                 vic_crime[year]["crime"]["Div"][div_code]+=x[sub_code]
-            if "subdiv" in output: 
+            if "subdiv" not in off_field: 
                 vic_crime[year]["crime"]["Subdiv"][sub_code]+=x[sub_code]
             
             
@@ -378,8 +378,8 @@ def crime_data_json():
     year=request.args.getlist('year')
     year=[int(x) for x in year]
 
-    output=request.args.getlist('output')
-    output=[x.lower() for x in output]
+    off_field=request.args.getlist('off_field')
+    off_field=[x.lower() for x in off_field]
 
     query={}
 
@@ -414,11 +414,11 @@ def crime_data_json():
 
             all_crime[year][suburb]["crime"]={}
             all_crime[year][suburb]["crime"]["Total"]=0
-            if "div" in output: 
+            if "div" not in off_field: 
                 all_crime[year][suburb]["crime"]["Div"]={}
                 for code in crimetp_dic["Offence Division code"]:
                     all_crime[year][suburb]["crime"]["Div"][code]=0
-            if "subdiv" in output: 
+            if "subdiv" not in off_field: 
                 all_crime[year][suburb]["crime"]["Subdiv"]={}
                 for code in crimetp_dic["Offence Subdivision code"]:
                     all_crime[year][suburb]["crime"]["Subdiv"][code]=0
@@ -427,9 +427,9 @@ def crime_data_json():
             sub_code=crimetp_dic["Offence Subdivision code"][idx]
             div_code=crimetp_dic["Offence Division code"][idx]
             all_crime[year][suburb]["crime"]["Total"]+=x[sub_code]
-            if "div" in output: 
+            if "div" not in off_field: 
                 all_crime[year][suburb]["crime"]["Div"][div_code]+=x[sub_code]
-            if "subdiv" in output: 
+            if "subdiv" not in off_field: 
                 all_crime[year][suburb]["crime"]["Subdiv"][sub_code]=x[sub_code]
             
             
