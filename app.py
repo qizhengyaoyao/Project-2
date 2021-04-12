@@ -102,6 +102,9 @@ def all_crime():
 
 @app.route("/api/v2.0/all")
 def all_crime_json():
+    output=request.args.getlist('output')
+    output=[x.lower() for x in output]
+    
     # Create our session (link) from Python to the DB
     crime=vic_db.vic_crime_db.find({},{"_id":0})
     crimetp=vic_db.vic_crimetype_db.find({},{"_id":0})
@@ -127,24 +130,34 @@ def all_crime_json():
 
             all_crime[year][suburb]["crime"]={}
             all_crime[year][suburb]["crime"]["Total"]=0
-            all_crime[year][suburb]["crime"]["Div"]={}
-            all_crime[year][suburb]["crime"]["Subdiv"]={}
-            for code in crimetp_dic["Offence Division code"]:
-                all_crime[year][suburb]["crime"]["Div"][code]=0
-            for code in crimetp_dic["Offence Subdivision code"]:
-                all_crime[year][suburb]["crime"]["Subdiv"][code]=0
+            if "div" in output: 
+                all_crime[year][suburb]["crime"]["Div"]={}
+                for code in crimetp_dic["Offence Division code"]:
+                    all_crime[year][suburb]["crime"]["Div"][code]=0
+            
+            if "subdiv" in output: 
+                all_crime[year][suburb]["crime"]["Subdiv"]={}
+                for code in crimetp_dic["Offence Subdivision code"]:
+                    all_crime[year][suburb]["crime"]["Subdiv"][code]=0
 
         for idx in range(len(crimetp_dic["Offence Subdivision code"])):
             sub_code=crimetp_dic["Offence Subdivision code"][idx]
             div_code=crimetp_dic["Offence Division code"][idx]
-            all_crime[year][suburb]["crime"]["Subdiv"][sub_code]=x[sub_code]
-            all_crime[year][suburb]["crime"]["Div"][div_code]+=x[sub_code]
             all_crime[year][suburb]["crime"]["Total"]+=x[sub_code]
+            if "div" in output: 
+                all_crime[year][suburb]["crime"]["Div"][div_code]+=x[sub_code]
+            if "subdiv" in output: 
+                all_crime[year][suburb]["crime"]["Subdiv"][sub_code]=x[sub_code]
+            
+            
 
     return jsonify(all_crime)
 
 @app.route("/api/v2.0/lga/all")
 def lga_all_crime_json():
+    output=request.args.getlist('output')
+    output=[x.lower() for x in output]
+
     # Create our session (link) from Python to the DB
     crime=vic_db.vic_crime_db.find({},{"_id":0})
     crimetp=vic_db.vic_crimetype_db.find({},{"_id":0})
@@ -167,24 +180,31 @@ def lga_all_crime_json():
             lga_crime[year][lga]["Region"]=x["Region"]
             lga_crime[year][lga]["crime"]={}
             lga_crime[year][lga]["crime"]["Total"]=0
-            lga_crime[year][lga]["crime"]["Div"]={}
-            lga_crime[year][lga]["crime"]["Subdiv"]={}
-            for code in crimetp_dic["Offence Division code"]:
-                lga_crime[year][lga]["crime"]["Div"][code]=0
-            for code in crimetp_dic["Offence Subdivision code"]:
-                lga_crime[year][lga]["crime"]["Subdiv"][code]=0
+            if "div" in output: 
+                lga_crime[year][lga]["crime"]["Div"]={}
+                for code in crimetp_dic["Offence Division code"]:
+                    lga_crime[year][lga]["crime"]["Div"][code]=0
+            if "subdiv" in output: 
+                lga_crime[year][lga]["crime"]["Subdiv"]={}
+                for code in crimetp_dic["Offence Subdivision code"]:
+                    lga_crime[year][lga]["crime"]["Subdiv"][code]=0
 
         for idx in range(len(crimetp_dic["Offence Subdivision code"])):
             sub_code=crimetp_dic["Offence Subdivision code"][idx]
             div_code=crimetp_dic["Offence Division code"][idx]
-            lga_crime[year][lga]["crime"]["Subdiv"][sub_code]+=x[sub_code]
-            lga_crime[year][lga]["crime"]["Div"][div_code]+=x[sub_code]
             lga_crime[year][lga]["crime"]["Total"]+=x[sub_code]
+            if "div" in output: 
+                lga_crime[year][lga]["crime"]["Div"][div_code]+=x[sub_code]
+            if "subdiv" in output: 
+                lga_crime[year][lga]["crime"]["Subdiv"][sub_code]+=x[sub_code]
 
     return jsonify(lga_crime)
 
 @app.route("/api/v2.0/region/all")
 def region_all_crime_json():
+    output=request.args.getlist('output')
+    output=[x.lower() for x in output]
+
     # Create our session (link) from Python to the DB
     crime=vic_db.vic_crime_db.find({},{"_id":0})
     crimetp=vic_db.vic_crimetype_db.find({},{"_id":0})
@@ -206,24 +226,31 @@ def region_all_crime_json():
             region_crime[year][region]["Region"]=region
             region_crime[year][region]["crime"]={}
             region_crime[year][region]["crime"]["Total"]=0
-            region_crime[year][region]["crime"]["Div"]={}
-            region_crime[year][region]["crime"]["Subdiv"]={}
-            for code in crimetp_dic["Offence Division code"]:
-                region_crime[year][region]["crime"]["Div"][code]=0
-            for code in crimetp_dic["Offence Subdivision code"]:
-                region_crime[year][region]["crime"]["Subdiv"][code]=0
+            if "div" in output: 
+                region_crime[year][region]["crime"]["Div"]={}
+                for code in crimetp_dic["Offence Division code"]:
+                    region_crime[year][region]["crime"]["Div"][code]=0
+            if "subdiv" in output: 
+                region_crime[year][region]["crime"]["Subdiv"]={}
+                for code in crimetp_dic["Offence Subdivision code"]:
+                    region_crime[year][region]["crime"]["Subdiv"][code]=0
 
         for idx in range(len(crimetp_dic["Offence Subdivision code"])):
             sub_code=crimetp_dic["Offence Subdivision code"][idx]
             div_code=crimetp_dic["Offence Division code"][idx]
-            region_crime[year][region]["crime"]["Subdiv"][sub_code]+=x[sub_code]
-            region_crime[year][region]["crime"]["Div"][div_code]+=x[sub_code]
             region_crime[year][region]["crime"]["Total"]+=x[sub_code]
+            if "div" in output: 
+                region_crime[year][region]["crime"]["Div"][div_code]+=x[sub_code]
+            if "subdiv" in output: 
+                region_crime[year][region]["crime"]["Subdiv"][sub_code]+=x[sub_code]
 
     return jsonify(region_crime)
 
 @app.route("/api/v2.0/vic/all")
 def vic_all_crime_json():
+    output=request.args.getlist('output')
+    output=[x.lower() for x in output]
+
     # Create our session (link) from Python to the DB
     crime=vic_db.vic_crime_db.find({},{"_id":0})
     crimetp=vic_db.vic_crimetype_db.find({},{"_id":0})
@@ -231,31 +258,37 @@ def vic_all_crime_json():
     crimetp_dic=unwrap_crimetp(crimetp)
 
     """Return a list of all crime sum by lga/year"""
-    region_crime={}
+    vic_crime={}
 
     for x in crime:
         year=x["Year"]
-        if year not in region_crime.keys():
-            region_crime[year]={}
-            region_crime[year]={}
-            region_crime[year]["Year"]=year
-            region_crime[year]["crime"]={}
-            region_crime[year]["crime"]["Total"]=0
-            region_crime[year]["crime"]["Div"]={}
-            region_crime[year]["crime"]["Subdiv"]={}
-            for code in crimetp_dic["Offence Division code"]:
-                region_crime[year]["crime"]["Div"][code]=0
-            for code in crimetp_dic["Offence Subdivision code"]:
-                region_crime[year]["crime"]["Subdiv"][code]=0
+        if year not in vic_crime.keys():
+            vic_crime[year]={}
+            vic_crime[year]={}
+            vic_crime[year]["Year"]=year
+            vic_crime[year]["crime"]={}
+            vic_crime[year]["crime"]["Total"]=0
+            if "div" in output: 
+                vic_crime[year]["crime"]["Div"]={}
+                for code in crimetp_dic["Offence Division code"]:
+                    vic_crime[year]["crime"]["Div"][code]=0
+            if "subdiv" in output: 
+                vic_crime[year]["crime"]["Subdiv"]={}
+                for code in crimetp_dic["Offence Subdivision code"]:
+                    vic_crime[year]["crime"]["Subdiv"][code]=0
 
         for idx in range(len(crimetp_dic["Offence Subdivision code"])):
             sub_code=crimetp_dic["Offence Subdivision code"][idx]
             div_code=crimetp_dic["Offence Division code"][idx]
-            region_crime[year]["crime"]["Subdiv"][sub_code]+=x[sub_code]
-            region_crime[year]["crime"]["Div"][div_code]+=x[sub_code]
-            region_crime[year]["crime"]["Total"]+=x[sub_code]
+            vic_crime[year]["crime"]["Total"]+=x[sub_code]
+            if "div" in output: 
+                vic_crime[year]["crime"]["Div"][div_code]+=x[sub_code]
+            if "subdiv" in output: 
+                vic_crime[year]["crime"]["Subdiv"][sub_code]+=x[sub_code]
+            
+            
 
-    return jsonify(region_crime)
+    return jsonify(vic_crime)
 
 @app.route("/api/v1.0/all_type")
 def all_crimetype():
@@ -345,6 +378,9 @@ def crime_data_json():
     year=request.args.getlist('year')
     year=[int(x) for x in year]
 
+    output=request.args.getlist('output')
+    output=[x.lower() for x in output]
+
     query={}
 
     if (len(postcode)): query["postcode"]={"$in": postcode}
@@ -378,19 +414,25 @@ def crime_data_json():
 
             all_crime[year][suburb]["crime"]={}
             all_crime[year][suburb]["crime"]["Total"]=0
-            all_crime[year][suburb]["crime"]["Div"]={}
-            all_crime[year][suburb]["crime"]["Subdiv"]={}
-            for code in crimetp_dic["Offence Division code"]:
-                all_crime[year][suburb]["crime"]["Div"][code]=0
-            for code in crimetp_dic["Offence Subdivision code"]:
-                all_crime[year][suburb]["crime"]["Subdiv"][code]=0
+            if "div" in output: 
+                all_crime[year][suburb]["crime"]["Div"]={}
+                for code in crimetp_dic["Offence Division code"]:
+                    all_crime[year][suburb]["crime"]["Div"][code]=0
+            if "subdiv" in output: 
+                all_crime[year][suburb]["crime"]["Subdiv"]={}
+                for code in crimetp_dic["Offence Subdivision code"]:
+                    all_crime[year][suburb]["crime"]["Subdiv"][code]=0
 
         for idx in range(len(crimetp_dic["Offence Subdivision code"])):
             sub_code=crimetp_dic["Offence Subdivision code"][idx]
             div_code=crimetp_dic["Offence Division code"][idx]
-            all_crime[year][suburb]["crime"]["Subdiv"][sub_code]=x[sub_code]
-            all_crime[year][suburb]["crime"]["Div"][div_code]+=x[sub_code]
             all_crime[year][suburb]["crime"]["Total"]+=x[sub_code]
+            if "div" in output: 
+                all_crime[year][suburb]["crime"]["Div"][div_code]+=x[sub_code]
+            if "subdiv" in output: 
+                all_crime[year][suburb]["crime"]["Subdiv"][sub_code]=x[sub_code]
+            
+            
 
     return jsonify(all_crime)
 
