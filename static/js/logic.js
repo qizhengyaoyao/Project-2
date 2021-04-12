@@ -4,15 +4,15 @@ var myMap = L.map("map", {
     zoom: 6
 });
 
-// // Adding tile layer
-// L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-//     attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-//     tileSize: 512,
-//     maxZoom: 18,
-//     zoomOffset: -1,
-//     id: "mapbox/streets-v11",
-//     accessToken: API_KEY
-// }).addTo(myMap);
+// Adding tile layer
+L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+    tileSize: 512,
+    maxZoom: 18,
+    zoomOffset: -1,
+    id: "mapbox/streets-v11",
+    accessToken: API_KEY
+}).addTo(myMap);
 
 // Use this link to get the geojson data.
 // const lgaAPI = "https://opendata.arcgis.com/datasets/0f6f122c3ad04cc9bb97b025661c31bd_0.geojson";
@@ -20,7 +20,7 @@ const lgaAPI = "../static/data/LGA.geojson" // Only use this if the variable abo
 const suburbAPI = "https://data.gov.au/geoserver/vic-suburb-locality-boundaries-psma-administrative-boundaries/wfs?request=GetFeature&typeName=ckan_af33dd8c_0534_4e18_9245_fc64440f742e&outputFormat=json";
 var geojson;
 
-const lgaCrimeData = "https://vic-crime.herokuapp.com/api/v2.0/lga/all";
+const lgaCrimeData = "/api/v3.0/lga/all";
 const crimeTypes = "../static/data/all_type.json";
 const suburbCrimeData = "";
 
@@ -67,11 +67,11 @@ function getDataAddMarkers({ label, value, map }) {
                 for (let i = 0; i < data.features.length; i++) {
                     let lgaProperties = data.features[i].properties;
                     //console.log(lgaName);
-                    for (let j in crimeJSON) {
-                        if (lgaProperties.ABB_NAME == j.toUpperCase()) {
+                    for (let lga in crimeJSON) {
+                        if (lgaProperties.ABB_NAME == lga.toUpperCase()) {
                             // console.log(lgaJSON.CRIME_TOTAL);
                             // console.log(`${lgaJSON.ABB_NAME} is equal to ${j}`)
-                            lgaProperties.CRIME_TOTAL = crimeJSON[j].crime.Total;
+                            lgaProperties.CRIME_TOTAL = crimeJSON[lga].crime.Total;
                             // console.log(crimeJSON[j].crime.Total);
                             // console.log(lgaJSON.CRIME_TOTAL);
                         } else {
@@ -87,10 +87,11 @@ function getDataAddMarkers({ label, value, map }) {
                         var filteredLGA = Object.entries(cData[label][lgaName]).filter((result, i) => result);
                         var output = [];
                         Object.entries(filteredLGA[3][1].Div).forEach((key, value) => {
-                            output.push(`<b>${crimeDivisions[key[0]]}</b>:<p style="text-align:center;">${key[1]}</p><p></p>`);
+                            output.push(`<b>${crimeDivisions[key[0]]}</b>:<p style="text-align:center;">${key[1]}</p>`);
                         })
                     } catch (err) { // catch any errors from a lack of data, etc.
-                        console.log("no data for this LGA!");
+                        console.log(`no data for ${lgaName}`);
+                        output.push(`<b>No Data</b>`);
                     }
                     return output;
                 };
@@ -141,7 +142,7 @@ function getDataAddMarkers({ label, value, map }) {
                             }
                         });
                         // call getLGACrime function, parse LGA Name in capitalised format to match our lgaCrimeData json
-                        layer.bindPopup(  `<h2><b> ${feature.properties.ABB_NAME} <b></h2>
+                        layer.bindPopup(`<h2><b> ${feature.properties.ABB_NAME} <b></h2>
                                           <hr>
                                           <h5>${getLGACrime(feature.properties.ABB_NAME.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))))}</h5>
                                           <hr>
