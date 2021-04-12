@@ -21,7 +21,7 @@ const suburbAPI = "https://data.gov.au/geoserver/vic-suburb-locality-boundaries-
 var geojson;
 
 const lgaCrimeData = "/api/v3.0/lga/all?off_field=subdiv";
-const crimeTypes = "/api/v2.0/all_type";
+const crimeTypes = "/api/v3.0/all_type";
 const suburbCrimeData = "";
 
 function getDataAddMarkers({ label, value, map }) {
@@ -88,7 +88,7 @@ function getDataAddMarkers({ label, value, map }) {
                         })
                     } catch (err) { // catch any errors from a lack of data, etc.
                         console.log(`no data for ${lgaName}`);
-                        output.push(`<b>No Data</b>`);
+                        // output.push(`<b>No Data</b>`);
                     }
                     return output;
                 };
