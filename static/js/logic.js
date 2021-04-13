@@ -1,4 +1,3 @@
-const API_KEY = "pk.eyJ1IjoicWl6aGVuZ3lhb3lhbyIsImEiOiJja21vZTFydDMwNW9qMm50OWk2aXNxZ21nIn0.Qrth5gE3dGRmssysay7XlQ";
 // Creating map object
 var myMap = L.map("map", {
     center: [-37.814563, 144.97026699999998],
@@ -14,8 +13,6 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     id: "mapbox/streets-v11",
     accessToken: API_KEY
 }).addTo(myMap);
-
-
 
 // Use this link to get the geojson data.
 const lgaAPI = "https://opendata.arcgis.com/datasets/0f6f122c3ad04cc9bb97b025661c31bd_0.geojson";

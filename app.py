@@ -1,5 +1,6 @@
 # import necessary libraries
 import os
+from dotenv import load_dotenv
 from flask import (
     Flask,
     render_template,
@@ -10,13 +11,23 @@ import pymongo
 from flask_cors import CORS
 # import config
 
+# from boto.s3.connection import S3Connection
+# s3 = S3Connection(os.environ['MONGODB_URI'], os.environ['API_KEY'])
+
+# print(s3)
+
 #################################################
 # Database Setup
 #################################################
-url = "mongodb+srv://mahjong:mahjong@cluster0.pyqix.mongodb.net/vic_crime?retryWrites=true&w=majority"
-client = pymongo.MongoClient(os.getenv("MONGODB_URI", url))
 
-# API_KEY=os.getenv("API_KEY", config.API_KEY)
+load_dotenv()
+
+#url = "mongodb+srv://mahjong:mahjong@cluster0.pyqix.mongodb.net/vic_crime?retryWrites=true&w=majority"
+client = pymongo.MongoClient(os.getenv("MONGODB_URI"))
+#client = pymongo.MongoClient(os.getenv("MONGODB_URI"))
+
+API_KEY=os.getenv("API_KEY")
+#print(API_KEY)
 
 vic_db = client['vic_crime']
 
@@ -43,8 +54,8 @@ def data():
 
 @app.route("/visualisation")
 def visualisation():
-    return render_template("visualisation.html")
-    # return render_template("visualisation.html", API_KEY=API_KEY)
+    #return render_template("visualisation.html")
+    return render_template("visualisation.html", API_KEY=API_KEY)
 
 @app.route("/api_doc")
 def welcome():
