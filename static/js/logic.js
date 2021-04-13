@@ -104,17 +104,19 @@ function getDataAddMarkers({ label, value, map }) {
                         legend.onAdd = function () {
                               // create div for legend and create buckets
                               var div = L.DomUtil.create("div", "info legend");
-                              div.innerHTML += "<h4><b>Crime Scale</h4> <h9>Highest Crime</h9><br>";
-                              div.innerHTML += '<i style="background:' + colours[0] + '"></i><span><b>' + maxCrime + ' -</b></span><br>';
-                              div.innerHTML += '<i style="background:' + colours[1]  + '"></i><span></span><br>';
-                              div.innerHTML += '<i style="background:' + colours[2]  + '"></i><span></span><br>';
-                              div.innerHTML += '<i style="background:' + colours[3]  + '"></i><span></span><br>';
-                              div.innerHTML += '<i style="background:' + colours[4]  + '"></i><span></span><br>';
-                              div.innerHTML += '<i style="background:' + colours[5]  + '"></i><span></span><br>';
-                              div.innerHTML += '<i style="background:' + colours[6]  + '"></i><span></span><br>';
-                              div.innerHTML += '<i style="background:' + colours[7]  + '"></i><span></span><br>';
+                              div.innerHTML += "<h4><b>Crime Scale</h4>"
+                              div.innerHTML += '<span><b>Year: ' + label + ' </b></span><br>'
+                              div.innerHTML += "<h9><b>Highest Crime</b></h9><br>";
+                              div.innerHTML += '<i style="background:' + colours[9] + '"></i><span><b>' + maxCrime + ' -</b></span><br>';
                               div.innerHTML += '<i style="background:' + colours[8]  + '"></i><span></span><br>';
-                              div.innerHTML += '<i style="background:' + colours[9]  + '"></i><span><b>' + minCrime + ' -</b></span><br>';
+                              div.innerHTML += '<i style="background:' + colours[7]  + '"></i><span></span><br>';
+                              div.innerHTML += '<i style="background:' + colours[6]  + '"></i><span></span><br>';
+                              div.innerHTML += '<i style="background:' + colours[5]  + '"></i><span></span><br>';
+                              div.innerHTML += '<i style="background:' + colours[4]  + '"></i><span></span><br>';
+                              div.innerHTML += '<i style="background:' + colours[3]  + '"></i><span></span><br>';
+                              div.innerHTML += '<i style="background:' + colours[2]  + '"></i><span></span><br>';
+                              div.innerHTML += '<i style="background:' + colours[1]  + '"></i><span></span><br>';
+                              div.innerHTML += '<i style="background:' + colours[0]  + '"></i><span><b>' + minCrime + ' -</b></span><br>';
                               div.innerHTML += '<h8><b>Lowest Crime</b></h9>'
 
                               return div;
@@ -129,9 +131,9 @@ function getDataAddMarkers({ label, value, map }) {
                                     var filteredLGA = Object.entries(cData[label][lgaName]).filter((result, i) => result);
                                     var output = [];
                                     Object.entries(filteredLGA[3][1].Div).forEach((key, value) => {
-                                          output.push(`<div id = "bindPopup"><p><b>${crimeDivisions[key[0]]}: </b>:${key[1]}</p></div>`);
+                                          output.push(`<b>${crimeDivisions[key[0]]}: </b>:${key[1]}<br>`);
                                     })
-                                    console.log(output)
+                                    console.log(key[1])
                               } catch (err) { // catch any errors from a lack of data, etc.
                                     console.log(`no data for ${lgaName}`);
                                  
@@ -182,7 +184,8 @@ function getDataAddMarkers({ label, value, map }) {
                                           }
                                     });
                                     // call getLGACrime function, parse LGA Name in capitalised format to match our lgaCrimeData json
-                                    layer.bindPopup(`<h2><b> ${feature.properties.ABB_NAME} </b></h2>
+                                    layer.bindPopup(`<h4><b> ${feature.properties.ABB_NAME} </b></h4>
+                                    <hr>
                                           
                                           ${getLGACrime(feature.properties.ABB_NAME.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))))}`                                      
                                     );
@@ -193,9 +196,9 @@ function getDataAddMarkers({ label, value, map }) {
       });
 };
 
-//=====================================================================
-//========================== Timeline Slider ==========================
-//=====================================================================
+
+//================================================ Timeline Slider ==========================================
+
 
 // Custom function to change the map per our API calls
 // Timeline slider plugin for leaflet, can be placed within a function
@@ -211,7 +214,6 @@ L.control.timelineSlider({
       position: "bottomright"      // default is "bottomright" if this is preferred
       // extraChangeMapParams: {exclamation: "Hello World!" }       // extra parameters that can be read by the function in changeMap
 }).addTo(myMap);
-//====================================================================
-//=====================================================================
-//=====================================================================
+//=======================================================================================================
+
 
