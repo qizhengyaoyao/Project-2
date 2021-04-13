@@ -60,6 +60,11 @@ def visualisation():
     #return render_template("visualisation.html")
     return render_template("visualisation.html", API_KEY=API_KEY)
 
+@app.route("/table")
+def table():
+    #return render_template("visualisation.html")
+    return render_template("table.html", API_KEY=API_KEY)
+
 @app.route("/api_doc")
 def welcome():
     """List all available api routes."""
