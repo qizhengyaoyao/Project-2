@@ -2,7 +2,7 @@ const API_KEY = "pk.eyJ1IjoicWl6aGVuZ3lhb3lhbyIsImEiOiJja21vZTFydDMwNW9qMm50OWk2
 // Creating map object
 var myMap = L.map("map", {
       center: [-37.814563, 144.97026699999998],
-      zoom: 8
+      zoom: 7
 });
 
 // Adding tile layer
@@ -26,12 +26,13 @@ var geojson; // empty variable to hold cloropleth
 
 const lgaCrimeData = "/api/v3.0/lga/all?off_field=subdiv";
 const crimeTypes = "/api/v3.0/all_type";
+
 const suburbCrimeData = "";
 
 function getDataAddMarkers({ label, value, map }) {
       console.log(`Timeline slider is set to ${parseInt(label)}`);
 
-//========================================== CLEARING CLOROPLETH ====================================
+//======================================= CLEARING CLOROPLETH / LEGEND ====================================
 
       // Clear the choropleth layer at the start of every timeline slider change (including init)
       map.eachLayer(function (layer) {
@@ -91,7 +92,7 @@ function getDataAddMarkers({ label, value, map }) {
                               };      
                         };
 
-//================================ LEGEND ============================================
+//=========================================== LEGEND ===================================================
 
                         sortedCrimeValues = valueCrime.sort((a, b) => b - a);   
                         var maxCrime = sortedCrimeValues[0]
@@ -99,15 +100,15 @@ function getDataAddMarkers({ label, value, map }) {
                         var steps = (maxCrime - minCrime)/10
                         
                         //https://gka.github.io/palettes/
-                        var colours = ['#e9002c', '#e8453a', '#e56549', '#e07f59', '#da9769', '#d1ad7a', '#c5c28b', '#b6d79d', '#a0ebaf', '#82ffc1']
+                        var colours = ['#00ff66', '#62ed60', '#85da5a', '#9cc754', '#adb34f', '#bb9f49', '#c68944', '#cf723f', '#d6573a', '#dc3136']
 
                         var legend = L.control({ position: "bottomright" });
 
                         legend.onAdd = function () {
                               // create div for legend and create buckets
                               var div = L.DomUtil.create("div", "info legend");
-                              div.innerHTML += "<h5><b>Crime Scale</h5> <br> <h8>Maximum <br> Crime</h8><br>";
-                              div.innerHTML += '<i style="background:' + colours[0] + '"></i><br>';
+                              div.innerHTML += "<h4><b>Crime Scale</h4> <h9>Highest Crime</h9><br>";
+                              div.innerHTML += '<i style="background:' + colours[0] + '"></i><span><b>' + maxCrime + ' -</b></span><br>';
                               div.innerHTML += '<i style="background:' + colours[1]  + '"></i><span></span><br>';
                               div.innerHTML += '<i style="background:' + colours[2]  + '"></i><span></span><br>';
                               div.innerHTML += '<i style="background:' + colours[3]  + '"></i><span></span><br>';
@@ -116,8 +117,8 @@ function getDataAddMarkers({ label, value, map }) {
                               div.innerHTML += '<i style="background:' + colours[6]  + '"></i><span></span><br>';
                               div.innerHTML += '<i style="background:' + colours[7]  + '"></i><span></span><br>';
                               div.innerHTML += '<i style="background:' + colours[8]  + '"></i><span></span><br>';
-                              div.innerHTML += '<i style="background:' + colours[9]  + '"></i><br>';
-                              div.innerHTML += '<h8>Minimum <br> Crime</h8>'
+                              div.innerHTML += '<i style="background:' + colours[9]  + '"></i><span><b>' + minCrime + ' -</b></span><br>';
+                              div.innerHTML += '<h8><b>Lowest Crime</b></h9>'
 
                               return div;
                         };
@@ -131,8 +132,9 @@ function getDataAddMarkers({ label, value, map }) {
                                     var filteredLGA = Object.entries(cData[label][lgaName]).filter((result, i) => result);
                                     var output = [];
                                     Object.entries(filteredLGA[3][1].Div).forEach((key, value) => {
-                                          output.push(`<p><b>${crimeDivisions[key[0]]}</b>:</p><br><p style="text-align:center;">${key[1]}</p>`);
+                                          output.push(`<div id = "bindPopup"><p><b>${crimeDivisions[key[0]]}: </b>:${key[1]}</p></div>`);
                                     })
+                                    console.log(output)
                               } catch (err) { // catch any errors from a lack of data, etc.
                                     console.log(`no data for ${lgaName}`);
                                  
@@ -147,7 +149,7 @@ function getDataAddMarkers({ label, value, map }) {
                               // Define what  property in the features to use
                               valueProperty: "CRIME_TOTAL",
                               // Set color scale
-                              scale: ['#00ffad','#e9002c'],
+                              scale: [colours[0],colours[9]],
                               // Number of breaks in step range
                               steps: 10,
                               // q for quartile, e for equidistant, k for k-means
@@ -183,13 +185,10 @@ function getDataAddMarkers({ label, value, map }) {
                                           }
                                     });
                                     // call getLGACrime function, parse LGA Name in capitalised format to match our lgaCrimeData json
-                                    layer.bindPopup(`<h><b> ${feature.properties.ABB_NAME} </b></h2>
-                                          <hr>
-                                          <h5>${getLGACrime(feature.properties.ABB_NAME.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))))}</h5>
-                                          <hr>
-                                          `
+                                    layer.bindPopup(`<h2><b> ${feature.properties.ABB_NAME} </b></h2>
+                                          
+                                          ${getLGACrime(feature.properties.ABB_NAME.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase()))))}`                                      
                                     );
-
                               }
                         }).addTo(myMap)
                   });

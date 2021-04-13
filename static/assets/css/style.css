@@ -23,8 +23,19 @@ a:hover {
   text-decoration: none;
 }
 
+p {
+      font-size: 15px;
+      border-top: 1000px;     
+
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: "Raleway", sans-serif;
+}
+
+#bindPopup {
+      padding-bottom: -10px;
+
 }
 
 /*--------------------------------------------------------------
@@ -1382,7 +1393,7 @@ section {
 }
 
 .contact .php-email-form .error-message br + br {
-  margin-top: 25px;
+  margin-top: 10px;
 }
 
 .contact .php-email-form .sent-message {
