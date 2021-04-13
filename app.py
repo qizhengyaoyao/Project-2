@@ -320,18 +320,25 @@ def lga_all_crime_geojson():
     del_list=[]
 
     for idx in range(len(geojson_data["features"])):
-        geo_lga=geojson_data["features"][idx]["properties"]["SH_NAME"]
-        if "OF " in geo_lga:
-            geo_lga=geo_lga.split("OF ")[1]
+        geo_lga=geojson_data["features"][idx]["properties"]["ABB_NAME"]
+        # if "OF " in geo_lga:
+        #     geo_lga=geo_lga.split("OF ")[1]
+        # if " SHRIE" in geo_lga:
+        #     geo_lga=geo_lga.split(" SHRIE")[0]
         geo_lga=geo_lga.lower().title()
-        if geo_lga not in lga_list:
-            del_list.append(idx)
-        else:
+        geo_lga_gr=f"Greater {geo_lga}"
+        if geo_lga in lga_list:
             for year in year_list:
-                geojson_data["features"][idx]["properties"][str(year)]=lga_crime[year][lga]
+                geojson_data["features"][idx]["properties"][str(year)]=lga_crime[year][geo_lga]
+        elif geo_lga_gr in lga_list:
+            for year in year_list:
+                geojson_data["features"][idx]["properties"][str(year)]=lga_crime[year][geo_lga_gr]
+        else:
+            del_list.append(idx)
+            
     
-    for i in reversed(del_list):
-        del geojson_data["features"][i]
+    # for i in reversed(del_list):
+    #     del geojson_data["features"][i]
 
     return jsonify(geojson_data)
 
