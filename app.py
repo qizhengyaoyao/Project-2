@@ -9,6 +9,7 @@ from flask import (
     redirect)
 import pymongo
 from flask_cors import CORS
+import requests
 # import config
 
 # from boto.s3.connection import S3Connection
@@ -30,6 +31,8 @@ API_KEY=os.getenv("API_KEY")
 #print(API_KEY)
 
 vic_db = client['vic_crime']
+
+lgaAPI = "https://opendata.arcgis.com/datasets/0f6f122c3ad04cc9bb97b025661c31bd_0.geojson"
 
 #################################################
 # Flask Setup
@@ -253,6 +256,84 @@ def lga_all_crime_3():
                 lga_crime[year][lga]["crime"]["Subdiv"][sub_code]=x[sub_code]
 
     return jsonify(lga_crime)
+
+@app.route("/api/v3.0/lga/geojson")
+def lga_all_crime_geojson():
+    off_field=request.args.getlist('off_field')
+    off_field=[x.lower() for x in off_field]
+
+    crimetp=vic_db.vic_crimetype_db.find({},{"_id":0})
+    crimetp_dic=unwrap_crimetp(crimetp)
+
+    groupby = ["Year","Local Government Area","Region"]
+    group = {
+        '_id': ["$%s" % (x if x else None) for x in groupby],
+        'Total': {'$sum': "$Total"}
+        }
+    if "div" not in off_field:
+        for code in crimetp_dic["Offence Division code"]:
+            group[code]={'$sum': "$%s"%code}
+    if "subdiv" not in off_field: 
+        for code in crimetp_dic["Offence Subdivision code"]:
+            group[code]={'$sum': "$%s"%code}
+
+    crime=vic_db.vic_crime_db.aggregate([{"$group":group}])
+
+    """Return a list of all crime sum by lga/year"""
+    lga_crime={}
+    lga_list=[]
+    year_list=[]
+    for x in crime:
+        year=x["_id"][0]
+        if year not in year_list:
+            year_list.append(year)
+        if year not in lga_crime.keys():
+            lga_crime[year]={}
+
+        lga=x["_id"][1]
+        region=x["_id"][2]
+        if lga not in lga_list:
+            lga_list.append(lga)
+        if lga not in lga_crime[year].keys():
+            lga_crime[year][lga]={}
+            lga_crime[year][lga]["Year"]=year
+            lga_crime[year][lga]["Local Government Area"]=lga
+            lga_crime[year][lga]["Region"]=region
+            lga_crime[year][lga]["crime"]={}
+            lga_crime[year][lga]["crime"]["Total"]=0
+            if "div" not in off_field: 
+                lga_crime[year][lga]["crime"]["Div"]={}
+            if "subdiv" not in off_field: 
+                lga_crime[year][lga]["crime"]["Subdiv"]={}
+
+        for idx in range(len(crimetp_dic["Offence Subdivision code"])):
+            sub_code=crimetp_dic["Offence Subdivision code"][idx]
+            div_code=crimetp_dic["Offence Division code"][idx]
+            lga_crime[year][lga]["crime"]["Total"]=x["Total"]
+            if "div" not in off_field: 
+                lga_crime[year][lga]["crime"]["Div"][div_code]=x[div_code]
+            if "subdiv" not in off_field: 
+                lga_crime[year][lga]["crime"]["Subdiv"][sub_code]=x[sub_code]
+    
+    response=requests.get(lgaAPI)
+    geojson_data=response.json()
+    del_list=[]
+
+    for idx in range(len(geojson_data["features"])):
+        geo_lga=geojson_data["features"][idx]["properties"]["SH_NAME"]
+        if "OF " in geo_lga:
+            geo_lga=geo_lga.split("OF ")[1]
+        geo_lga=geo_lga.lower().title()
+        if geo_lga not in lga_list:
+            del_list.append(idx)
+        else:
+            for year in year_list:
+                geojson_data["features"][idx]["properties"][str(year)]=lga_crime[year][lga]
+    
+    for i in reversed(del_list):
+        del geojson_data["features"][i]
+
+    return jsonify(geojson_data)
 
 @app.route("/api/v2.0/region/all")
 def region_all_crime_json():
