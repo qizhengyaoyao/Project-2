@@ -210,6 +210,34 @@ def lga_all_crime_3():
 
     return jsonify(lga_crime)
 
+
+@app.route("/api/v3.0/lga/all_suburb")
+def lga_all_suburb():
+    groupby = ["suburb","Local Government Area"]
+    group = {
+        '_id': ["$%s" % (x if x else None) for x in groupby]
+        }
+
+    crime=vic_db.vic_crime_db.aggregate([{"$group":group}])
+
+    """Return a list of all crime sum by lga/year"""
+    lga_suburb=[]
+
+    for x in crime:
+        suburb=x["_id"][0]
+        lga=x["_id"][1]
+        if "Greater" in lga:
+             lga=lga.split(" ")[1]
+        
+        suburb=suburb.lower()
+        lga=lga.lower()
+
+        tmp_dict={"suburb":suburb,"lga_name":lga}
+
+        lga_suburb.append(tmp_dict)
+
+    return jsonify(lga_suburb)
+
 @app.route("/api/v3.0/region/all")
 def region_all_crime_3():
     off_field=request.args.getlist('off_field')

@@ -19,9 +19,7 @@ function addcrimedata(crimedata) {
             row.append("td").text(data["crime"]["Div"]["F"]);
             row.append("td").text(data["crime"]["Total"]);
         }
-        
       }
-
 };
 
 

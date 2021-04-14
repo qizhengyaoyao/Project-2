@@ -23,7 +23,8 @@ var geojson; // empty variable to hold cloropleth
 
 const lgaCrimeData = "/api/v3.0/lga/all?off_field=subdiv";
 const crimeTypes = "/api/v3.0/all_type";
-const suburbsLga = "static/data/suburbs_lga.json"
+// const suburbsLga = "static/data/suburbs_lga.json";
+const suburbsLga = "/api/v3.0/lga/all_suburb";
 
 const suburbCrimeData = "";
 
