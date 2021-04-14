@@ -22,16 +22,9 @@ import requests
 #################################################
 
 load_dotenv()
-
-#url = "mongodb+srv://mahjong:mahjong@cluster0.pyqix.mongodb.net/vic_crime?retryWrites=true&w=majority"
 client = pymongo.MongoClient(os.getenv("MONGODB_URI"))
-#client = pymongo.MongoClient(os.getenv("MONGODB_URI"))
-
 API_KEY=os.getenv("API_KEY")
-#print(API_KEY)
-
 vic_db = client['vic_crime']
-
 lgaAPI = "https://opendata.arcgis.com/datasets/0f6f122c3ad04cc9bb97b025661c31bd_0.geojson"
 
 #################################################
@@ -63,7 +56,7 @@ def visualisation():
 @app.route("/table")
 def table():
     #return render_template("visualisation.html")
-    return render_template("table.html", API_KEY=API_KEY)
+    return render_template("table.html")
 
 @app.route("/api_doc")
 def welcome():
