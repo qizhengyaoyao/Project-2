@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Victorian Crime Data - Data</title>
+  <title>Victorian Crime Data - Table</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -57,6 +57,7 @@
           <li><a class="nav-link scrollto" href="{{ url_for('table') }}">Table</a></li>
           <!-- <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
           <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li> -->
+         
           <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
@@ -89,10 +90,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Data</h2>
+          <h2>Table</h2>
           <ol>
             <li><a href="{{ url_for('Welcome') }}">Home</a></li>
-            <li>Data</li>
+            <li>Table</li>
           </ol>
         </div>
 
@@ -101,23 +102,95 @@
 
     <section class="Data">
       <div class="container">
-          <div class = 'row'>
-            <div class = 'col-6'>
-              <a href = "https://discover.data.vic.gov.au/dataset/crime-by-location-data-table" target = "_blank">
-                <p><h2>Victorian Crime Data:</h2></br>https://discover.data.vic.gov.au/dataset/crime-by-location-data-table</p>
-              </a>
-              </br>
-              <a href = "https://data.gov.au/dataset/ds-dga-bdf92691-c6fe-42b9-a0e2-a4cd716fa811/details" target = "_blank">
-                <p><h2>Victorian Local Government Area Boundary:</h2></br> https://data.gov.au/dataset/ds-dga-bdf92691-c6fe-42b9-a0e2-a4cd716fa811/details </p>
-              </a>
-            </div>
-            <div class = 'col-6'>
-              <a href = "https://data.gov.au/dataset/ds-dga-af33dd8c-0534-4e18-9245-fc64440f742e/details" target = "_blank">
-                <p><h2>Victorian Suburb Locality Boundary:</h2></br>https://data.gov.au/dataset/ds-dga-af33dd8c-0534-4e18-9245-fc64440f742e/details</p>
-              </a>  
+        <div class="row margin-top-50">
+          <div class="col-md-2">
+            <aside class="filters">
+              <div class="panel panel-default">
+                <div class="panel-heading">Filter Search</div>
+                <div class="panel-body">
+                  <form>
+                    <div class="form-group" >
+                      <ul class="list-group" id="filters">
+                        <li class="filter list-group-item">
+                          <label for="postcode">Enter a postcode</label>
+                          <input class="form-control" id="postcode" type="text" placeholder="3000">
+                          <label for="suburb">Enter a suburb</label>
+                          <input class="form-control" id="suburb" type="text" placeholder="melbourne">
+                          <label for="lga">Enter a local government area</label>
+                          <input class="form-control" id="lga" type="text" placeholder="Melbourne">
+                          <label for="year">Enter a Year</label>
+                          <input class="form-control" id="year" type="text" placeholder="2011">
+                        </li>
+                      </ul>
+                    </div>
+                    <br>
+                    <button id="filter-btn" type="button" class="btn btn-default">Filter Table</button>
+                  </form>
+                </div>
+              </div>
+            </aside>
+          </div>
+          <div class="col-md-10">
+            <div id="table-area" class="">
+              <table id="vic-crime-table" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="table-head">Year</th>
+                    <th class="table-head">suburb</th>
+                    <th class="table-head">postcode</th>
+                    <th class="table-head">LGA</th>
+                    <th class="table-head">A</th>
+                    <th class="table-head">B</th>
+                    <th class="table-head">C</th>
+                    <th class="table-head">D</th>
+                    <th class="table-head">E</th>
+                    <th class="table-head">F</th>
+                    <th class="table-head">Total crime</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+              <table id="vic-crime-table" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="table-head">Offence Division code</th>
+                    <th class="table-head">Offence Division</th>
+                  </tr>
+                </thead>
+                <br>
+                <hr>
+                <tbody>
+                  <tr>
+                    <td>A</td>
+                    <td>Crimes against the person</td>
+                  </tr>
+                  <tr>
+                    <td>B</td>
+                    <td>Property and deception offences</td>
+                  </tr>
+                  <tr>
+                    <td>C</td>
+                    <td>Drug offences</td>
+                  </tr>
+                  <tr>
+                    <td>D</td>
+                    <td>Public order and security offences</td>
+                  </tr>
+                  <tr>
+                    <td>E</td>
+                    <td>Justice procedures offences</td>
+                  </tr>
+                  <tr>
+                    <td>F</td>
+                    <td>Other offences</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
+        </div>
       </div>
+      
     </section>
 
   </main><!-- End #main -->
@@ -156,6 +229,9 @@
   <script src="static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="static/assets/vendor/php-email-form/validate.js"></script>
   <script src="static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
+  <script src="static/js/app.js"></script>
 
   <!-- Template Main JS File -->
   <script src="static/assets/js/main.js"></script>

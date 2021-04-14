@@ -76,13 +76,15 @@ function getDataAddMarkers({ label, value, map }) {
                               //console.log(lgaName);
 
                               for (let lga in crimeJSON) {
-                                    if (lgaProperties.ABB_NAME == lga.toUpperCase()) {
-                                          // console.log(lgaJSON.CRIME_TOTAL);
-                                          // console.log(`${lgaJSON.ABB_NAME} is equal to ${j}`)
-                                          lgaProperties.CRIME_TOTAL = crimeJSON[lga].crime.Total;
-                                          // console.log(crimeJSON[j].crime.Total);
-                                          // console.log(lgaJSON.CRIME_TOTAL);   
+                                  lga_nm=lgaProperties.ABB_NAME;
+                                  lga_nm_gr=`GREATER ${lga_nm}`;
+                                    if (lga_nm == lga.toUpperCase()) {
+                                          lgaProperties.CRIME_TOTAL = crimeJSON[lga].crime.Total; 
                                           valueCrime.push(parseInt(crimeJSON[lga].crime.Total))
+                                    }
+                                    else if (lga_nm_gr == lga.toUpperCase()) {
+                                        lgaProperties.CRIME_TOTAL = crimeJSON[lga].crime.Total;
+                                        valueCrime.push(parseInt(crimeJSON[lga].crime.Total));
                                     }
                                     else {
                                           continue;
@@ -134,10 +136,14 @@ function getDataAddMarkers({ label, value, map }) {
                                     Object.entries(filteredLGA[3][1].Div).forEach((key, value) => {
                                           output.push(`<b>${crimeDivisions[key[0]]}: </b>${key[1]}<br>`);
                                     })
-                                    console.log(key[1])
+                                    // console.log(key[1])
                               } catch (err) { // catch any errors from a lack of data, etc.
+<<<<<<< HEAD
                                     // console.log(`no data for ${lgaName}`);
 
+=======
+                                    console.log(`no data for ${lgaName}`);
+>>>>>>> 524e8cee808a3b551c4a73328e64702b146ebb55
                               }
                               return output;
                         };

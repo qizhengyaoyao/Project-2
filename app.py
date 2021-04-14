@@ -22,16 +22,9 @@ import requests
 #################################################
 
 load_dotenv()
-
-#url = "mongodb+srv://mahjong:mahjong@cluster0.pyqix.mongodb.net/vic_crime?retryWrites=true&w=majority"
 client = pymongo.MongoClient(os.getenv("MONGODB_URI"))
-#client = pymongo.MongoClient(os.getenv("MONGODB_URI"))
-
 API_KEY=os.getenv("API_KEY")
-#print(API_KEY)
-
 vic_db = client['vic_crime']
-
 lgaAPI = "https://opendata.arcgis.com/datasets/0f6f122c3ad04cc9bb97b025661c31bd_0.geojson"
 
 #################################################
@@ -59,6 +52,11 @@ def data():
 def visualisation():
     #return render_template("visualisation.html")
     return render_template("visualisation.html", API_KEY=API_KEY)
+
+@app.route("/table")
+def table():
+    #return render_template("visualisation.html")
+    return render_template("table.html")
 
 @app.route("/api_doc")
 def welcome():
@@ -155,53 +153,6 @@ def all_crime_json():
 
     return jsonify(all_crime)
 
-@app.route("/api/v2.0/lga/all")
-def lga_all_crime_json():
-    off_field=request.args.getlist('off_field')
-    off_field=[x.lower() for x in off_field]
-
-    # Create our session (link) from Python to the DB
-    crime=vic_db.vic_crime_db.find({},{"_id":0})
-    crimetp=vic_db.vic_crimetype_db.find({},{"_id":0})
-
-    crimetp_dic=unwrap_crimetp(crimetp)
-
-    """Return a list of all crime sum by lga/year"""
-    lga_crime={}
-
-    for x in crime:
-        year=x["Year"]
-        if year not in lga_crime.keys():
-            lga_crime[year]={}
-
-        lga=x["Local Government Area"]
-        if lga not in lga_crime[year].keys():
-            lga_crime[year][lga]={}
-            lga_crime[year][lga]["Year"]=year
-            lga_crime[year][lga]["Local Government Area"]=lga
-            lga_crime[year][lga]["Region"]=x["Region"]
-            lga_crime[year][lga]["crime"]={}
-            lga_crime[year][lga]["crime"]["Total"]=0
-            if "div" not in off_field: 
-                lga_crime[year][lga]["crime"]["Div"]={}
-                for code in crimetp_dic["Offence Division code"]:
-                    lga_crime[year][lga]["crime"]["Div"][code]=0
-            if "subdiv" not in off_field: 
-                lga_crime[year][lga]["crime"]["Subdiv"]={}
-                for code in crimetp_dic["Offence Subdivision code"]:
-                    lga_crime[year][lga]["crime"]["Subdiv"][code]=0
-
-        for idx in range(len(crimetp_dic["Offence Subdivision code"])):
-            sub_code=crimetp_dic["Offence Subdivision code"][idx]
-            div_code=crimetp_dic["Offence Division code"][idx]
-            lga_crime[year][lga]["crime"]["Total"]+=x[sub_code]
-            if "div" not in off_field: 
-                lga_crime[year][lga]["crime"]["Div"][div_code]+=x[sub_code]
-            if "subdiv" not in off_field: 
-                lga_crime[year][lga]["crime"]["Subdiv"][sub_code]+=x[sub_code]
-
-    return jsonify(lga_crime)
-
 @app.route("/api/v3.0/lga/all")
 def lga_all_crime_3():
     off_field=request.args.getlist('off_field')
@@ -233,6 +184,8 @@ def lga_all_crime_3():
             lga_crime[year]={}
 
         lga=x["_id"][1]
+        if "Greater" in lga:
+             lga=lga.split(" ")[1]
         region=x["_id"][2]
         if lga not in lga_crime[year].keys():
             lga_crime[year][lga]={}
@@ -256,130 +209,6 @@ def lga_all_crime_3():
                 lga_crime[year][lga]["crime"]["Subdiv"][sub_code]=x[sub_code]
 
     return jsonify(lga_crime)
-
-@app.route("/api/v3.0/lga/geojson")
-def lga_all_crime_geojson():
-    off_field=request.args.getlist('off_field')
-    off_field=[x.lower() for x in off_field]
-
-    crimetp=vic_db.vic_crimetype_db.find({},{"_id":0})
-    crimetp_dic=unwrap_crimetp(crimetp)
-
-    groupby = ["Year","Local Government Area","Region"]
-    group = {
-        '_id': ["$%s" % (x if x else None) for x in groupby],
-        'Total': {'$sum': "$Total"}
-        }
-    if "div" not in off_field:
-        for code in crimetp_dic["Offence Division code"]:
-            group[code]={'$sum': "$%s"%code}
-    if "subdiv" not in off_field: 
-        for code in crimetp_dic["Offence Subdivision code"]:
-            group[code]={'$sum': "$%s"%code}
-
-    crime=vic_db.vic_crime_db.aggregate([{"$group":group}])
-
-    """Return a list of all crime sum by lga/year"""
-    lga_crime={}
-    lga_list=[]
-    year_list=[]
-    for x in crime:
-        year=x["_id"][0]
-        if year not in year_list:
-            year_list.append(year)
-        if year not in lga_crime.keys():
-            lga_crime[year]={}
-
-        lga=x["_id"][1]
-        region=x["_id"][2]
-        if lga not in lga_list:
-            lga_list.append(lga)
-        if lga not in lga_crime[year].keys():
-            lga_crime[year][lga]={}
-            lga_crime[year][lga]["Year"]=year
-            lga_crime[year][lga]["Local Government Area"]=lga
-            lga_crime[year][lga]["Region"]=region
-            lga_crime[year][lga]["crime"]={}
-            lga_crime[year][lga]["crime"]["Total"]=0
-            if "div" not in off_field: 
-                lga_crime[year][lga]["crime"]["Div"]={}
-            if "subdiv" not in off_field: 
-                lga_crime[year][lga]["crime"]["Subdiv"]={}
-
-        for idx in range(len(crimetp_dic["Offence Subdivision code"])):
-            sub_code=crimetp_dic["Offence Subdivision code"][idx]
-            div_code=crimetp_dic["Offence Division code"][idx]
-            lga_crime[year][lga]["crime"]["Total"]=x["Total"]
-            if "div" not in off_field: 
-                lga_crime[year][lga]["crime"]["Div"][div_code]=x[div_code]
-            if "subdiv" not in off_field: 
-                lga_crime[year][lga]["crime"]["Subdiv"][sub_code]=x[sub_code]
-    
-    response=requests.get(lgaAPI)
-    geojson_data=response.json()
-    del_list=[]
-
-    for idx in range(len(geojson_data["features"])):
-        geo_lga=geojson_data["features"][idx]["properties"]["SH_NAME"]
-        if "OF " in geo_lga:
-            geo_lga=geo_lga.split("OF ")[1]
-        geo_lga=geo_lga.lower().title()
-        if geo_lga not in lga_list:
-            del_list.append(idx)
-        else:
-            for year in year_list:
-                geojson_data["features"][idx]["properties"][str(year)]=lga_crime[year][lga]
-    
-    for i in reversed(del_list):
-        del geojson_data["features"][i]
-
-    return jsonify(geojson_data)
-
-@app.route("/api/v2.0/region/all")
-def region_all_crime_json():
-    off_field=request.args.getlist('off_field')
-    off_field=[x.lower() for x in off_field]
-
-    # Create our session (link) from Python to the DB
-    crime=vic_db.vic_crime_db.find({},{"_id":0})
-    crimetp=vic_db.vic_crimetype_db.find({},{"_id":0})
-
-    crimetp_dic=unwrap_crimetp(crimetp)
-
-    """Return a list of all crime sum by lga/year"""
-    region_crime={}
-
-    for x in crime:
-        year=x["Year"]
-        if year not in region_crime.keys():
-            region_crime[year]={}
-
-        region=x["Region"]
-        if region not in region_crime[year].keys():
-            region_crime[year][region]={}
-            region_crime[year][region]["Year"]=year
-            region_crime[year][region]["Region"]=region
-            region_crime[year][region]["crime"]={}
-            region_crime[year][region]["crime"]["Total"]=0
-            if "div" not in off_field: 
-                region_crime[year][region]["crime"]["Div"]={}
-                for code in crimetp_dic["Offence Division code"]:
-                    region_crime[year][region]["crime"]["Div"][code]=0
-            if "subdiv" not in off_field: 
-                region_crime[year][region]["crime"]["Subdiv"]={}
-                for code in crimetp_dic["Offence Subdivision code"]:
-                    region_crime[year][region]["crime"]["Subdiv"][code]=0
-
-        for idx in range(len(crimetp_dic["Offence Subdivision code"])):
-            sub_code=crimetp_dic["Offence Subdivision code"][idx]
-            div_code=crimetp_dic["Offence Division code"][idx]
-            region_crime[year][region]["crime"]["Total"]+=x[sub_code]
-            if "div" not in off_field: 
-                region_crime[year][region]["crime"]["Div"][div_code]+=x[sub_code]
-            if "subdiv" not in off_field: 
-                region_crime[year][region]["crime"]["Subdiv"][sub_code]+=x[sub_code]
-
-    return jsonify(region_crime)
 
 @app.route("/api/v3.0/region/all")
 def region_all_crime_3():
@@ -434,48 +263,6 @@ def region_all_crime_3():
 
     return jsonify(region_crime)
 
-@app.route("/api/v2.0/vic/all")
-def vic_all_crime_json():
-    off_field=request.args.getlist('off_field')
-    off_field=[x.lower() for x in off_field]
-
-    # Create our session (link) from Python to the DB
-    crime=vic_db.vic_crime_db.find({},{"_id":0})
-    crimetp=vic_db.vic_crimetype_db.find({},{"_id":0})
-
-    crimetp_dic=unwrap_crimetp(crimetp)
-
-    """Return a list of all crime sum by lga/year"""
-    vic_crime={}
-
-    for x in crime:
-        year=x["Year"]
-        if year not in vic_crime.keys():
-            vic_crime[year]={}
-            vic_crime[year]={}
-            vic_crime[year]["Year"]=year
-            vic_crime[year]["crime"]={}
-            vic_crime[year]["crime"]["Total"]=0
-            if "div" not in off_field: 
-                vic_crime[year]["crime"]["Div"]={}
-                for code in crimetp_dic["Offence Division code"]:
-                    vic_crime[year]["crime"]["Div"][code]=0
-            if "subdiv" not in off_field: 
-                vic_crime[year]["crime"]["Subdiv"]={}
-                for code in crimetp_dic["Offence Subdivision code"]:
-                    vic_crime[year]["crime"]["Subdiv"][code]=0
-
-        for idx in range(len(crimetp_dic["Offence Subdivision code"])):
-            sub_code=crimetp_dic["Offence Subdivision code"][idx]
-            div_code=crimetp_dic["Offence Division code"][idx]
-            vic_crime[year]["crime"]["Total"]+=x[sub_code]
-            if "div" not in off_field: 
-                vic_crime[year]["crime"]["Div"][div_code]+=x[sub_code]
-            if "subdiv" not in off_field: 
-                vic_crime[year]["crime"]["Subdiv"][sub_code]+=x[sub_code]
-
-    return jsonify(vic_crime)
-
 @app.route("/api/v3.0/vic/all")
 def vic_all_crime_3():
     off_field=request.args.getlist('off_field')
@@ -525,20 +312,6 @@ def vic_all_crime_3():
                 vic_crime[year]["crime"]["Subdiv"][sub_code]=x[sub_code]
 
     return jsonify(vic_crime)
-
-@app.route("/api/v2.0/all_type")
-def all_crimetype_json():
-    # Create our session (link) from Python to the DB
-    test=vic_db.vic_crimetype_db.find({},{"_id":0})
-
-    """Return a list of all types"""
-    # Query all passengers
-    all_crimetype=[]
-
-    for x in test:
-        all_crimetype.append(x)
-
-    return jsonify(all_crimetype)
 
 @app.route("/api/v3.0/all_type")
 def all_crimetype_3():
@@ -629,6 +402,91 @@ def crime_data_json():
                 all_crime[year][suburb]["crime"]["Subdiv"][sub_code]=x[sub_code]
 
     return jsonify(all_crime)
+
+# @app.route("/api/v3.0/lga/geojson")
+# def lga_all_crime_geojson():
+#     off_field=request.args.getlist('off_field')
+#     off_field=[x.lower() for x in off_field]
+
+#     crimetp=vic_db.vic_crimetype_db.find({},{"_id":0})
+#     crimetp_dic=unwrap_crimetp(crimetp)
+
+#     groupby = ["Year","Local Government Area","Region"]
+#     group = {
+#         '_id': ["$%s" % (x if x else None) for x in groupby],
+#         'Total': {'$sum': "$Total"}
+#         }
+#     if "div" not in off_field:
+#         for code in crimetp_dic["Offence Division code"]:
+#             group[code]={'$sum': "$%s"%code}
+#     if "subdiv" not in off_field: 
+#         for code in crimetp_dic["Offence Subdivision code"]:
+#             group[code]={'$sum': "$%s"%code}
+
+#     crime=vic_db.vic_crime_db.aggregate([{"$group":group}])
+
+#     """Return a list of all crime sum by lga/year"""
+#     lga_crime={}
+#     lga_list=[]
+#     year_list=[]
+#     for x in crime:
+#         year=x["_id"][0]
+#         if year not in year_list:
+#             year_list.append(year)
+#         if year not in lga_crime.keys():
+#             lga_crime[year]={}
+
+#         lga=x["_id"][1]
+#         region=x["_id"][2]
+#         if lga not in lga_list:
+#             lga_list.append(lga)
+#         if lga not in lga_crime[year].keys():
+#             lga_crime[year][lga]={}
+#             lga_crime[year][lga]["Year"]=year
+#             lga_crime[year][lga]["Local Government Area"]=lga
+#             lga_crime[year][lga]["Region"]=region
+#             lga_crime[year][lga]["crime"]={}
+#             lga_crime[year][lga]["crime"]["Total"]=0
+#             if "div" not in off_field: 
+#                 lga_crime[year][lga]["crime"]["Div"]={}
+#             if "subdiv" not in off_field: 
+#                 lga_crime[year][lga]["crime"]["Subdiv"]={}
+
+#         for idx in range(len(crimetp_dic["Offence Subdivision code"])):
+#             sub_code=crimetp_dic["Offence Subdivision code"][idx]
+#             div_code=crimetp_dic["Offence Division code"][idx]
+#             lga_crime[year][lga]["crime"]["Total"]=x["Total"]
+#             if "div" not in off_field: 
+#                 lga_crime[year][lga]["crime"]["Div"][div_code]=x[div_code]
+#             if "subdiv" not in off_field: 
+#                 lga_crime[year][lga]["crime"]["Subdiv"][sub_code]=x[sub_code]
+    
+#     response=requests.get(lgaAPI)
+#     geojson_data=response.json()
+#     del_list=[]
+
+#     for idx in range(len(geojson_data["features"])):
+#         geo_lga=geojson_data["features"][idx]["properties"]["ABB_NAME"]
+#         # if "OF " in geo_lga:
+#         #     geo_lga=geo_lga.split("OF ")[1]
+#         # if " SHRIE" in geo_lga:
+#         #     geo_lga=geo_lga.split(" SHRIE")[0]
+#         geo_lga=geo_lga.lower().title()
+#         geo_lga_gr=f"Greater {geo_lga}"
+#         if geo_lga in lga_list:
+#             for year in year_list:
+#                 geojson_data["features"][idx]["properties"][str(year)]=lga_crime[year][geo_lga]
+#         elif geo_lga_gr in lga_list:
+#             for year in year_list:
+#                 geojson_data["features"][idx]["properties"][str(year)]=lga_crime[year][geo_lga_gr]
+#         else:
+#             del_list.append(idx)
+            
+    
+#     # for i in reversed(del_list):
+#     #     del geojson_data["features"][i]
+
+#     return jsonify(geojson_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
