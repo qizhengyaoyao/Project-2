@@ -17,22 +17,60 @@ We strongly believe this app will assist people moving or living in Victoria to 
 * Tom Peddlesden https://github.com/tomjp90
 * Welan Chu https://github.com/welanc
 
-## Web design:
+## Data
 
-I have a suggested workflow, if you guys would like to try this? 
+### Data source
+* [Victorian Crime Data](https://discover.data.vic.gov.au/dataset/crime-by-location-data-table)
+* [Suburb locality boundary](https://data.gov.au/dataset/ds-dga-af33dd8c-0534-4e18-9245-fc64440f742e/details)
+* [Victorian Local Government Area Boundaries](https://data.gov.au/dataset/ds-dga-bdf92691-c6fe-42b9-a0e2-a4cd716fa811/details)
 
-Please integrate any working code for the website (including javascript app.js and flask app.py etc.) to the directory "01_main." For now, feel free to work in other folders if you are more comfortable, to simply run tests in isolation, and when you have something working, merge your code into the 01_main folder. 
+### Data size and store
+* The total document ammount of our data is 28295.
+* The whole data is save in mongodb atlas cluster.
 
-Alternatively, you could follow the "conventional" git workflow and make a separate branch, test your code directly in the 01_main folder in your separate branch, then if it works well, merge it into the main branch. 
+## Deploy enviorment
 
-When we have finished all tasks, we can cut all files from 01_main and paste them into the root directory and delete all temp folders. (i.e. 00_temp, 01_main, heesus_temp_file, LGA_geomap, suburb geomap)
-###
+This app is deployed on heroku.
+
+## Backend
+
+The backend has 4 routes for rendering the html pages and 7 routes for API functions to return the required data.
+The key for mongodb server and api are stored on heroku and retrieved by flask file.
+
+### API functions
+* Route /api/v3.0/all: return all the crime data for each suburb/year.
+* Route /api/v3.0/lga/all: return all  the crime for each local government area/year.
+* Route /api/v3.0/region/all: return all  the crime for each region/year.
+* Route /api/v3.0/vic/all: return all  the crime for each year in victoria.
+* Route /api/v3.0/lga/all_suburb: return the suburb list of each local government area.
+* Route /api/v3.0/all_type: return the crime division/subdivision name and code.
+* Route /api/v3.0/crime_data: return the filtered data depending on the input parameters. For example, request https://vic-crime.herokuapp.com/api/v3.0/crime_data?suburb=melbourne&year=2011&year=2020&off_field=subdiv will retrun the crime data (exclude the data of crime subdivisions) of melbourne suburb in year 2011 and year 2020.
+
+## Web frontend
+
+The vic-crime website has 4 pages, including the home page, data source page, visulisation page and table page
+
+### Geomap visualisation
+* Time slider: The geomap has a time slider plugin as shown in the right bottom of the [visualisation page](https://vic-crime.herokuapp.com/visualisation). Clicking on them can show the crime distribution in victoria in different years.
+* Popup: Cliding on differnt LGA will show the details of the crime data and the suburb infomation.
+* Choropleth: choropleth map is used to show the crime data of different areas. Legend is shown in the right bottom of the page. Red areas have more crime cases, while green areas have less.
+
+![visualisation_vic-crime_herokuapp_com](image/visualisation_vic-crime_herokuapp_com.jpeg)
 
 ### Table page
+The table page can show the detailed crime data of suburbs you want to investigate. For example, enter 3166 in postcode box and 2011 in year box and click on "Filter Table" button, the data for suburbs hughesdale/huntingdale/oakleigh/oakleigh east in 2011 will pop up. The table of codes and their corresponding name is also given at the bottom right.
 
-### API functions:
+![table_vic-crime_herokuapp_com](image/table_vic-crime_herokuapp_com.jpeg)
 
-## Technologies:
+## File structure
+
+* Folder "data": this folder contains the jupyter notebook for data wrangling and the source of dataset we used in this project.
+* Folder "static": this folder contains the javascript files, css files and othe relevant format files.
+* Folder "templates": this folder contains all the html files.
+* File app.py: this file is the backend flask file.
+* File requirements.txt: this file is the environment file.
+
+## Technologies
 
 * Python
 * Pymongo
@@ -41,10 +79,6 @@ When we have finished all tasks, we can cut all files from 01_main and paste the
 * Javascript
 * Heroku - publish site
 
-## Data resources
-* [Victorian Crime Data](https://discover.data.vic.gov.au/dataset/crime-by-location-data-table)
-* [Suburb locality boundary](https://data.gov.au/dataset/ds-dga-af33dd8c-0534-4e18-9245-fc64440f742e/details)
-* [Victorian Local Government Area Boundaries](https://data.gov.au/dataset/ds-dga-bdf92691-c6fe-42b9-a0e2-a4cd716fa811/details)
+## Notes 
 
-## Notes  
 Please feel free to contact us!

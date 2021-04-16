@@ -1,5 +1,4 @@
 // YOUR CODE HERE!
-// console.log(tableData);
 var tbody = d3.select("tbody");
 
 function addcrimedata(crimedata) {
@@ -39,17 +38,12 @@ function runEnter() {
     var inputyear = d3.select("#year").property("value");
   
     // Get the value property of the input element
-    // var inputValue = inputDate.property("value");
-  
-    // console.log(inputDate);
-
     crimedata_url= `/api/v3.0/crime_data?off_field=subdiv&`;
     if (inputpostcode!="") {crimedata_url=`${crimedata_url}postcode=${inputpostcode}&`}
     if (inputsuburb!="") {crimedata_url=`${crimedata_url}suburb=${inputsuburb}&`}
     if (inputlga!="") {crimedata_url=`${crimedata_url}lga=${inputlga}&`}
     if (inputyear!="") {crimedata_url=`${crimedata_url}year=${inputyear}&`}
-  
-    // console.log(filteredData);
+
     tbody.html("");
 
     d3.json(crimedata_url, function (data) {
