@@ -29,7 +29,7 @@ const suburbsLga = "/api/v3.0/lga/all_suburb";
 const suburbCrimeData = "";
 
 function getDataAddMarkers({ label, value, map }) {
-      console.log(`Timeline slider is set to ${parseInt(label)}`);
+      // console.log(`Timeline slider is set to ${parseInt(label)}`);
 
       //======================================= CLEARING CLOROPLETH / LEGEND ====================================
 
@@ -139,7 +139,7 @@ function getDataAddMarkers({ label, value, map }) {
                                     })
                                     // console.log(key[1])
                               } catch (err) { // catch any errors from a lack of data, etc.
-                                    console.log(`no data for ${lgaName}`);
+                                    // console.log(`no data for ${lgaName}`);
                               }
                               return output;
                         };
