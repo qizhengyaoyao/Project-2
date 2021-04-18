@@ -4,7 +4,7 @@
 We endeavoured to make an interactive visualisation of crime in each area of Victoria to assist in deciding the safest areas to live in.
 * Victoria has some of the fastest growing Local Government Area (LGA) populations in Australia.
 * More than 4 Million people call Victoria home.
-* Victoria population grows around 20,000 to 150,000 people each year.
+* Victorias population grows around 20,000 to 150,000 people each year.
 
 We strongly believe this app will assist people moving or living in Victoria to find a safe place to live.
 
