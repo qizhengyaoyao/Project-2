@@ -1,4 +1,4 @@
-# Project-2 Living in Victoria Living Safe
+# Project-2 Living in Victoria, Living Safe
 
 ## Background
 We created an interactive visualisation of crime in each area of Victoria to assist in deciding the safest areas to live in. 
