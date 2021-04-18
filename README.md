@@ -5,6 +5,7 @@ We created an interactive visualisation of crime in each area of Victoria to ass
 * Victoria has some of the fastest growing Local Government Area (LGA) populations in Australia.
 * More than 4 Million people call Victoria home.
 * Victorias population grows around 20,000 to 150,000 people each year.
+
 Each area of Victoria is split into Local Government Areas (LGAs) where a cloropleth map is created. The crime amount for each LGA is shown in a diferent colour determined bythe crime colour scale where higher crime LGAs can be easily visualised. By also clicking on the LGA area, all suburbs and types of crimes are also shown in a popup. A time slider plugin for leaflet was added to the visualisation to show all the crimes from each year from 2010-2020.
 
 We strongly believe this app will assist people moving or living in Victoria to find a safe place to live.
