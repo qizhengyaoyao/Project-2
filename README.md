@@ -26,8 +26,8 @@ We strongly believe this app will assist people moving or living in Victoria to 
 * Pymongo
 * Flask
 * Javascript
-* -D3
-* -Leaflet
+  * -D3
+  * -Leaflet
 * HTML
 * CSS
 * Heroku - publish site
