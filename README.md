@@ -20,6 +20,18 @@ We strongly believe this app will assist people moving or living in Victoria to 
 * Tom Peddlesden https://github.com/tomjp90
 * Welan Chu https://github.com/welanc
 
+## Technologies
+
+* Python
+* Pymongo
+* Flask
+* Javascript
+** D3
+** Leaflet
+* HTML
+* CSS
+* Heroku - publish site
+
 ## Data
 
 ### Data source
@@ -72,15 +84,6 @@ The table page can show the detailed crime data of suburbs you want to investiga
 * Folder "templates": this folder contains all the html files.
 * File app.py: this file is the backend flask file.
 * File requirements.txt: this file is the environment file.
-
-## Technologies
-
-* Python
-* Pymongo
-* Flask
-* HTML
-* Javascript
-* Heroku - publish site
 
 ## Notes 
 
