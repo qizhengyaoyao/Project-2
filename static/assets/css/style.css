@@ -741,6 +741,25 @@ section {
 }
 
 /*--------------------------------------------------------------
+# Table
+--------------------------------------------------------------*/
+
+/* Responsive table container for data table 
+   to avoid overrun on smaller resolutions */
+.table-responsive {
+  overflow-y: scroll;
+}
+
+/* Column headers to remain visible all the time */
+.table-responsive thead th {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  border-bottom: 1px;
+  border-color: black;
+}
+
+/*--------------------------------------------------------------
 # Services
 --------------------------------------------------------------*/
 .services .icon-box {
