@@ -748,6 +748,7 @@ section {
    to avoid overrun on smaller resolutions */
 .table-responsive {
   overflow-y: scroll;
+  height: 600px;
 }
 
 /* Column headers to remain visible all the time */
